@@ -1,0 +1,61 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+.imageBox, .cardBox {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+.cardBox:hover {
+	box-shadow: 0 0 0px 1px red;
+}
+
+.cardImage:hover {
+	border: 0 !important;
+}
+
+.promptPromo
+.ant-modal-header {
+	height: 200px;
+    margin-bottom: 50px;
+    background-image: url('./loma_brew_modal.png');
+    background-size: 100% 200px;
+}
+
+.promptPromo
+.modalTitle {
+	position: relative;
+    top: 210px;
+}
+
+@media only screen and (min-width: 1920px) {
+    .promptPromo
+	.ant-modal-header {
+		height: 300px;
+		background-size: 100% 300px;
+    }
+	
+	.promptPromo
+	.modalTitle {
+		position: relative;
+		top: 310px;
+	}
+}
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+	.header,
+	.footer,
+	.buttonGroup {
+		background: white !important;
+	}
+	
+	.promptPromo
+	.ant-modal-header {
+		height: 120px;
+		background-size: 100% 120px;
+	}
+	
+	.promptPromo
+	.modalTitle {
+		top: 110px;
+	}
+}

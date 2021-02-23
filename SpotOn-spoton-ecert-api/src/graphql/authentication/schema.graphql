@@ -1,0 +1,18 @@
+type User {
+    uid: Int!
+    email: String
+    password: String
+    token: String
+    firstname: String!
+    lastname: String!
+    roleid: String
+    status: Int
+    message: String
+    jwttoken: String
+}
+
+type Query {
+    login(email: String!, password: String!): User
+    getUserbyid(uid: String!): User
+    getAllUser: User
+}

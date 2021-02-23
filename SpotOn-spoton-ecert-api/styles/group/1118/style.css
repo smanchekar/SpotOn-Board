@@ -1,0 +1,50 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+@font-face {
+    font-family: 'BrandonPrinted-One';
+    font-style: normal;
+    src: local('Archer-Bold'), url(./BrandonPrinted-One.ttf) format('truetype');
+}
+
+.pageTitle {
+    font-family: 'BrandonPrinted-One' !important;
+    color: #D34727 !important;
+}
+
+.bagTitle {
+    font-family: 'BrandonPrinted-One' !important;
+    color: #D34727 !important;
+}
+
+.cardDesignContainer,
+.cardDesignContainerFull,
+.cardPersonalizeContainer,
+.checkoutContainer,
+.bagContainer,
+.bagHeader,
+.bagFooter,
+.order,
+.layout,
+.main,
+.innerLayout,
+.bagFooterMobile,
+.buttonGroup,
+.footer {
+    background: transparent !important;
+}
+
+body {
+    background: url('./World_wraps_background.jpg') center center fixed no-repeat !important;
+    background-size: cover !important;
+}
+
+.customInput label {
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+	.footer,
+	.buttonGroup {
+		background: url('./World_wraps_background.jpg') !important;
+	}
+}

@@ -1,0 +1,66 @@
+type Retailer {
+    retailerId: Int
+    groupId: String
+    merchantId: String
+    transId: String
+    retailerName: String
+    retailerLogo: String
+    retailerActive: String
+    retailerProfiles: [RetailerProfile]
+    tokenKey: String
+    customStyle: String
+    bannerName: String
+}
+
+type RetailerCardDesign {
+    catid: Int
+    catdesc: String
+    catdisplayorder: Int
+    cards: [CardDesign]
+}
+
+type RetailerProfile {
+    retailerprofilename: String
+    retailerprofilevalue: String
+}
+
+type CardDesign {
+    cardid: Int
+    carddesc: String
+    cardimagename: String
+    carddisplayorder: Int
+    styles: String
+}
+
+input CardDesignInput {
+    cardid: Int
+    carddesc: String
+    cardimagename: String
+    carddisplayorder: Int
+    styles: String
+    type: String
+}
+
+type GoogleAnalytics {
+    trackingID: String
+}
+
+type MerchantInfo {
+    retailerName: String
+    retailerLogo: String
+    status: Boolean
+    message: String
+}
+
+type Query {
+    retailer(
+        groupid: String
+        merchantid: String
+        retailername: String
+    ): Retailer
+    carddesigns(retailerid: Int!): [RetailerCardDesign]
+    analytics: GoogleAnalytics
+    merchant(merchantid: String!): MerchantInfo
+
+    allRetailers: [Retailer]
+}

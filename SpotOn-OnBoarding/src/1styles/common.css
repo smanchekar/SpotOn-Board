@@ -1,0 +1,27 @@
+ 
+ body {
+    font-family: Arial, Helvetica, sans-serif;
+ }
+
+ .spaceBetween {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .spaceAround {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+ }
+
+ .flexRow {
+     display: flex;
+     align-items: center;
+ }
+
+ .flexColumn {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }

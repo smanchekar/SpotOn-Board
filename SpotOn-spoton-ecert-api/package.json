@@ -1,0 +1,39 @@
+{
+    "name": "spotondapi",
+    "version": "1.0.0",
+    "description": "The SpotOn Web Application Server",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "babel-node server.js "
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@babel/core": "^7.10.2",
+        "@babel/node": "^7.10.1",
+        "@babel/preset-env": "^7.10.2",
+        "apollo-server-express": "^2.14.5",
+        "axios": "^0.19.2",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "cryptr": "^6.0.2",
+        "dotenv": "^8.2.0",
+        "express": "^4.15.2",
+        "graphiql": "^0.7.8",
+        "graphql": "^15.1.0",
+        "jsonwebtoken": "^8.5.1",
+        "moment": "2.24.0",
+        "path": "^0.12.7",
+        "pg": "^6.4.2",
+        "pg-hstore": "^2.3.2",
+        "react": "^15.3.1",
+        "react-dom": "^15.3.1",
+        "schemaglue": "^2.0.2",
+        "sequelize": "^5.21.13"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.10.1",
+        "nodemon": "^1.19.4"
+    }
+}

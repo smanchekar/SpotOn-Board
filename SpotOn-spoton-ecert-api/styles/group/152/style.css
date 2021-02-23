@@ -1,0 +1,411 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+.cardDesignContainer,
+.cardDesignContainerFull,
+.cardPersonalizeContainer,
+.checkoutContainer,
+.bagContainer,
+.bagHeader,
+.bagFooter,
+.order,
+.layout,
+.main,
+.innerLayout,
+.bagFooterMobile,
+.buttonGroup,
+.footer 
+{
+    background: transparent !important;
+	/*border-bottom: 1px solid #e5e5e5;*/
+}
+
+
+
+
+.header {
+	background: url(./TRG_GiftCards_Banners_SpotOn_Oct2020-02.jpg) center right no-repeat ;
+    /*background-size: calc(100% - 120px) 72px !important;*/
+}
+
+/************************************************/
+.layout .innerLayout {
+    background-image: url('./background/thunderdome_background.png')  !important;
+ }
+
+.layout .header .retailerLogo {
+    left: 120px;
+    position: absolute;
+    margin-right: 16px;
+	  margin-left: 10px !important;  
+	  left: 4;
+}
+
+.layout .header .poweredBy {
+    height: 50px;
+    width: 112px;
+	border-left:none !important;   
+    border-right: 2px solid #f0f0f0;
+}
+
+.layout .header {
+    background-position: center;
+    background-image: url('./background/Group%2066457.png'), 
+	url('./background/thunderdome_header.png');
+    background-repeat: no-repeat ,repeat;
+}
+
+.layout .header .bagButton {
+  background-color: #FFFFFF ;
+}
+
+.layout .header .bagButton .bagIcon {
+    content: url('./images/New%20Bag.png');
+
+}
+
+.cardPersonalizeContainer .submitBtn:enabled{
+	background-color:white;
+	    color: #676B6C;
+}
+
+.bagContainer .ant-drawer-wrapper-body {
+  background-image: url('./background/thunderdome_background.png');
+}
+
+.cardDesigns .imageBox img:hover {
+    border-radius: 1px !important;
+    border: solid 2px #676B6C !important;
+
+}
+
+.customInput label{
+	border-radius:4px !important;
+}
+
+.Number label,
+.Expiry label,
+.CVV label,
+.Expiry label{
+	border-radius:4px;
+}
+
+.bagHeader .closeIcon ,
+.bagHeader .bagTitle,
+.bagHeader .editButton
+{
+	color:white;
+}
+
+.bagHeader{
+		border-bottom: 1px solid #e5e5e5 !important;
+	}
+	
+	
+.bagFooter .bagFooterText{
+	color:white;
+}
+
+.bagItem{
+	background-color: #676B6C;	
+	border-radius: 4px;
+}
+.bagItem .cardInfo {
+    padding: 10px;
+    margin-left: 0px;
+}
+.bagItem .cardImage{
+	padding:10px;
+	border-radius: 3px;
+}
+.cardInfo p{
+	color: white !important;	
+}
+
+.priceTags{
+	color:white !important;
+}
+
+.emptyBagText{
+	color:white;
+}
+
+
+.bagFooter button{
+    background-color: white !important;
+	font-family: 'Lato';
+    border: none;
+    color: #676B6C;
+}
+
+.bagFooter button:disabled 
+{
+    background-color: white !important;
+    color:#676B6C;
+    cursor: not-allowed;
+}
+
+.bagFooter button:hover:enabled{
+    background-color:white!important;
+   
+}
+
+.bagEmpty .ant-drawer-body {
+    background: url('./images/thunderdome_bag_c.png') center center no-repeat !important;
+}
+.orderConfirmation .homeButton {
+    color: #676B6C;
+    background-color: white;
+}
+
+.backButton .backIcon svg,
+.backButton .button2
+{
+	color:white !important;
+}
+
+.orderConfirmation .pageTitle{
+	color:white ;
+}
+
+.orderConfirmation .orderInfo .confirmMsgTxt,
+.orderConfirmation .orderInfo .confirmOrderNum
+{
+	color:white !important;
+}
+
+.disclaimer{
+	color:white !important;
+}
+
+
+.cardDesignContainer .pageTitle ,
+.cardDesignContainer  .pageSubTitle{
+	color:white ;
+	
+}
+
+.cardPersonalizeContainer .pageTitle{
+	color:white ;
+}
+
+.checkoutContainer .pageTitle{
+	color:white ;
+}
+.cardPersonalizeContainer .backIcon svg ,
+.cardPersonalizeContainer .button2 {
+	color:white !important;
+}
+
+
+.layout .header .bagButton .bagLabelAqua{
+    color: #676B6C;
+}
+
+/*
+.cardWrapper .removeBtn {
+    font-family: 'Lato';
+    color: white;
+    background: trasparent !important;
+    background-color: transparent;
+    position: inherit;
+}
+*/
+
+.cardWrapper .removeBtn {
+    font-family: 'Lato';
+    color: white;
+    background: url('./background/thunderdome_background.png') !important;
+    /* position: inherit; */
+}
+
+.layout .header .bagButton .bagLabelPlum{
+    color: #676B6C;
+}
+
+.cardPersonalizeContainer .priceContainer .priceTags button {
+    background-color: white;
+    color: #676B6C;
+	font-family: 'Lato' !important;
+}
+
+.cardPersonalizeContainer .priceContainer .priceTags button:hover {
+    background-color: white;
+    color: #676B6C;
+	font-family: 'Lato' !important;
+}
+
+.cardPersonalizeContainer .formContainer .priceTags button[class*=selected] {
+    background-color: #676B6C !important;
+    color: #fff;
+}
+
+
+
+.inputLabelTop{
+	color:white ;
+}
+.amountMinMax label{
+	color:white;
+}
+.inputLabelBottom{
+	color:white ;
+}
+
+
+.cardWrapper .bagItem .editIcon  svg{
+	color:white !important;
+}
+.inputDescTop{
+	color:white !important;
+}
+
+
+.buttonLink,
+.deleteIcon svg {
+    color: white !important;
+}
+
+/*.orderConfirmation .orderInfo {
+    background-color: rgb(103,107,108,0.5) !important;
+    text-align: center;
+	padding-top: 30px;
+    padding-bottom: 35px;
+	top: 20px;
+    position: relative;
+	
+}*/
+.orderConfirmation .orderInfo {
+    padding-right: 20px;
+    padding-left: 20px;
+    /* text-align: center; */
+    padding-top: 30px;
+    /* padding-bottom: 20px; */
+    position: relative;
+    background-color: rgb(103,107,108,0.5) !important;
+	
+}
+
+
+.orderCard {
+	padding-top: 1.5rem;
+    background-color: rgb(103,107,108,0.5) !important;
+    margin-top: 0rem !important;
+    box-shadow: none !important;
+    padding-left: 100px;
+}
+
+.orderCard .imageBox {
+    border-radius: 8px;
+}
+
+.textGroup label,
+.textGroup h4,
+.textGroup p{
+	font-family:'Lato' ;
+    color: white !important;
+}
+
+.cardPreview .previewBox p{
+    color: white;
+}
+
+/****************************************************/
+
+
+
+
+
+body {
+    background: url('./TRG_GiftCards_Banners_SpotOn_Oct2020-03.jpg') center center fixed no-repeat !important;
+    background-size: cover !important;
+}
+
+
+
+
+
+
+
+.promptPromo
+.ant-modal-header {
+	height: 200px;
+    margin-bottom: 50px;
+    background-image: url('./thunderdome_modal.png');
+    background-size: 100% 200px;
+}
+
+.promptPromo
+.modalTitle {
+	position: relative;
+    top: 210px;
+}
+
+@media only screen and (min-width: 1920px) {
+    .promptPromo
+	.ant-modal-header {
+		height: 300px;
+		background-size: 100% 300px;
+    }
+	
+	.promptPromo
+	.modalTitle {
+		position: relative;
+		top: 310px;
+	}
+}
+
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+	.header,
+	.buttonGroup {
+		background: white !important;
+	}
+	
+	.cardDesignContainer .footer button {
+    background-color: white !important;
+	color:#676B6C !important;
+   }
+
+	
+ .pageTitle {
+    color: #676B6C !important;
+}
+	
+	.checkoutContainer .footer button:enabled {
+    background-color: white;
+    color: #676B6C;
+}
+	
+	.promptPromo
+	.ant-modal-header {
+		height: 120px;
+		background-size: 100% 120px;
+	}
+	
+	.orderCard {
+    margin: auto;
+    padding-right: 50px !important;
+    padding-left: 50px !important;
+    /* padding: 50px !important; */
+    width: 100% !important;
+}
+	
+	.orderCard .button3 {
+    color: white !important;
+	}
+	
+	.promptPromo
+	.modalTitle {
+		top: 110px;
+	}
+}
+
+
+
+@media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+  .layout .header {
+	  background-color:white !important;
+	  background-image: none;
+	  }
+  }
+

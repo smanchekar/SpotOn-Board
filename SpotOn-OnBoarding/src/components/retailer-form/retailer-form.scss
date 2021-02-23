@@ -1,0 +1,18 @@
+.retailerForm {
+    width: 100%;
+    padding: 0 25%;
+    height: calc(100vh - 290px);
+    overflow: auto;
+    text-align: left;
+    margin: auto;
+    p {
+        font-size: 15px;
+    }
+    .ant-col-sm-16 {
+        width: 100%;
+        text-align: right;
+    }
+    .ant-input {
+        width: 300px;
+    }
+}

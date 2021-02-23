@@ -1,0 +1,67 @@
+@import '../../styles/common.scss';
+
+.sidebar {
+    background-color: $main-color-dark;
+    color: white !important;
+    font-size: 0.94rem;
+    padding-top: 2rem;
+    min-width: 17%;
+
+    .side-header {
+        padding: 20px;
+        letter-spacing: 0.4px;
+        align-items: center;
+
+        .logo {
+            width: 20px;
+            height: 20px;
+            padding: 6px;
+            border-radius: 50%;
+            background-color: white;
+            margin-right: 4px;
+            div {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: $main-color-dark;
+            }
+        }
+    }
+
+    .options {
+        .row {
+            min-height: 3.75rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        .current {
+            width: 0.44rem;
+            max-width: 0.44rem;
+            border-radius: 0.2rem;
+            padding: 0;
+        }
+        .link {
+            border: 0;
+            color: white;
+            font-weight: 500;
+            font-size: 1.125rem;
+            text-align: left !important;
+        }
+        .footer {
+            position: fixed;
+            bottom: 1.25rem;
+        }
+    }
+}
+
+@include ipad-landscape {
+    .sidebar {
+        min-width: 200px;
+    }
+}
+
+@include mobile-landscape {
+    .sidebar {
+        padding-top: 0;
+    }
+}

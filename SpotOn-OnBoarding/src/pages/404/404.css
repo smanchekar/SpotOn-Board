@@ -1,0 +1,13 @@
+.ErrorMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height : calc(100vh - 64px)
+}
+
+.FourZeroFour {
+    font-size   : 50px;
+    font-weight : bold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 2px 5px grey
+}

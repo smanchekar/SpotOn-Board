@@ -1,0 +1,33 @@
+@import '../../styles/common.scss';
+
+.layout {
+    height: calc(100% - #{$header-height});
+
+    .content {
+        padding: 3rem;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .has-cards {
+        background-color: $white-smoke;
+    }
+}
+
+@include mobile-landscape {
+    .layout {
+        height: calc(100% - 140px);
+
+        .content {
+            padding: 0;
+        }
+    }
+
+    .no-header {
+        height: calc(100% - 80px);
+    }
+
+    .no-footer {
+        height: calc(100% - 60px);
+    }
+}

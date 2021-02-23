@@ -1,0 +1,605 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+@font-face {
+    font-family: 'Archer-Bold';
+    font-style: normal;
+    src: local('Archer-Bold'), url(./fonts/Archer-Bold.otf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Eveleth-Regular';
+    font-style: normal;
+    src: local('Eveleth-Regular'), url('./fonts/Eveleth-Regular.otf') format('truetype');
+}
+
+.header {
+    background: url('./background_textures/chalkboard_texture.jpg') center top repeat !important;
+}
+
+.pageTitle {
+    font-family: 'Eveleth-Regular' !important;
+}
+
+
+/************************************************/
+
+
+:root {
+  --red: #CF0A2C;
+  
+}
+
+
+.bagButton {
+    background-color: var(--red);
+	color:white;
+}
+
+.cardDesigns .imageBox img:hover {
+    border-radius: 15px !important;
+    border: 2px solid #000000  !important;
+    padding: 2px  !important;
+}
+
+
+
+.layout .header .bagButton .bagIcon {
+    content: url('./background_textures/deweys_white_bag.png') !important;
+    
+}
+
+@-moz-document url-prefix() { 
+  .layout .header .bagButton .bagIcon {
+      content:url('./background_textures/deweys_white_bag.png') !important;
+    
+  /* background: url(https://spoton-test.s3.ap-south-1.amazonaws.com/styles/group/171/background_textures/deweys_white_bag.png) !important;*/
+}
+}
+
+
+
+.bagFooter button{
+    background-color: var(--red) !important;
+	    font-family: 'Archer-Bold';
+    border: none;
+    color: #fff;
+}
+
+.bagFooter button:disabled 
+{
+    background-color: #d1d3d3 !important;
+    color: #b3b5b6;
+    cursor: not-allowed;
+}
+
+.bagFooter button:hover:enabled{
+    background-color: var(--red) !important;
+   
+}
+
+.bagLabelAqua, 
+.bagLabelPlum {
+    color: white !important;
+}
+
+
+
+.bagItem {
+    zoom: 0.9;
+    background: rgba(255,255,255,.5);
+    padding: 16px;
+}
+
+
+ .bagItem  .cardInfo .Text___p__1yPJq {
+    font-family: 'Archer-Bold' !important;
+}
+
+
+ .bagItem .cardInfoFull .Text___p__1yPJq{
+    font-family: 'Archer-Bold' !important;
+}
+
+	
+.bagHeader .editButton {
+	font-family: 'Archer-Bold';
+    font-weight: 500;
+    margin-top: 5px;
+    color: black;
+}	
+
+.backButton .button2 {
+    border: 0;
+    padding-left: 4px;
+    color: black;
+	font-family: 'Archer-Bold';
+}	
+
+	.bagContainer .ant-drawer-body {
+		border-left: 1px solid black !important;
+	}
+
+
+/* retailer logo in middle */	
+.layout .header .retailerLogo {
+    left: 48%;
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+    display: block;
+}
+
+.layout .header .poweredBy {
+    height: 50px;
+    width: 112px;
+     border-left: 0px !important;
+}
+
+/* bag background of brushed_metal */
+.bagContainer .ant-drawer-content {
+    overflow: hidden;
+    background: url('./background_textures/brushed_metal.jpg');
+}
+
+.bagEmpty .ant-drawer-body {
+    background: url('./background_textures/Empty%20bag%20Red.png') 50% no-repeat !important; 
+}
+
+.bagTitle .Text___h3__1nl_t{
+	font-family: 'Archer-Bold' !important;
+}
+
+.backButton .backIcon svg{
+    
+    color: black !important;
+}
+
+.submit button{
+	 background-color: var(--red) !important;
+}
+
+.submit button:hover{
+	 background-color: var(--red) !important;
+}
+
+.modalFooter .removeBtn{
+	 background-color: var(--red);
+}
+
+
+/* remove all button*/
+.cardWrapper .removeBtn {
+	background:url('./background_textures/brushed_metal.jpg');
+    /*background: transparent;*/
+	/*position: inherit !important;*/
+}
+
+.Number label,
+.Expiry label,
+.CVV label,
+.Expiry label{
+	border-radius:8px;
+	color:black;
+}
+
+.editIcon svg{
+	color:black !important;
+}
+
+.promptPromo .modalFooter .confirmBtn:focus {
+    background-color:var(--red);
+	color:white !important;
+}
+.promptPromo .modalFooter .confirmBtn {
+    background-color:var(--red);
+	color:white !important;
+}
+
+
+.promptPromo .modalFooter .cancelBtn {
+	background-color:var(--red) !important ;
+	color:white !important;
+	font-family: 'Archer-Bold';
+}
+
+.confirm .modalFooter .cancelBtn{
+	background-color:transparent) !important ;
+	color:black ;
+}
+.confirm .modalFooter .confirmBtn{
+	background-color:var(--red) !important ;
+	color:white !important;
+	font-family: 'Archer-Bold' !important;
+}
+
+.confirm .modalFooter .confirmBtn:hover{
+	background-color:var(--red) ;
+}
+
+
+.orderConfirmation .homeButton{
+	background-color:var(--red) !important;
+	color:white !important;
+}
+
+.form .submit button:hover {
+	background-color:var(--red)
+}
+
+.cardPersonalizeContainer  .submitBtn:enabled {
+    width: 100%;
+    margin-top: 34px;
+	background-color: var(--red) !important;
+	    font-family: 'Archer-Bold';
+}
+
+.cardPersonalizeContainer .formContainer .priceTags button[class*=selected] {
+    background-color: black !important;
+    color: #fff;
+}
+.cardPersonalizeContainer .priceContainer .priceTags button {
+    color: #3E4042 ;
+    background-color: #F0F0F1 !important;
+ 
+}
+
+.promptPromo .modalHeader {
+    background-size: cover;
+    background-image: url('./background_textures/g7.png');
+}
+
+
+
+
+.orderCard {
+	padding-top: 1.5rem;
+    background-color: rgba(255,255,255,0.5) !important;
+    margin-top: 0rem !important;
+    box-shadow: none !important;
+    padding-left: 100px;
+}
+/*
+.orderConfirmation .orderInfo {
+    background-color: rgb(255,255,255,0.5) !important;
+    text-align: center;
+	padding-top: 30px;
+    padding-bottom: 35px;
+	top: 20px;
+    position: relative;
+	
+}*/
+
+.orderConfirmation .orderInfo {
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: rgb(255,255,255,0.5) !important;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+
+.ant-picker-input>input:placeholder-shown {
+    font-family: 'Archer-Bold';
+}
+
+
+
+
+
+/***********************************************/
+
+.pageSubTitle,
+.bagTitle,
+.bagFooterText,
+.disclaimer,
+.textGroupLabel,
+.textGroupValue,
+.modalTitle,
+.modalMessage,
+.menuItem,
+.bagItemAmount,
+.cardAmount,
+.cardMessage,
+.emptyBagText,
+.confirmMsgTxt,
+.confirmOrderNum,
+.bagItemLabel {
+    font-family: 'Archer-Bold' !important;
+}
+
+.cardDesignContainer,
+.cardDesignContainerFull,
+.cardPersonalizeContainer,
+.checkoutContainer,
+.bagContainer,
+.bagHeader,
+.bagFooter,
+.order,
+.layout,
+.main,
+.innerLayout,
+.bagFooterMobile,
+.buttonGroup,
+.footer {
+    background: transparent !important;
+	/*border-bottom: 1px solid black !important;*/
+}
+
+
+.bagHeader{
+		border-bottom: 1px solid black !important;
+	}
+	
+	
+body {
+    background: url('./background_textures/brushed_metal.jpg') center center fixed no-repeat !important;
+    background-size: cover !important;
+}
+
+.ant-modal-header {
+	border-bottom: 0;
+}
+
+.promptPromo
+.ant-modal-header {
+    height: 200px;
+    margin-bottom: 50px;
+	background-image: url('./background_textures/g7.png');
+    background-size: 100% 200px;
+}
+
+.promptPromo
+.modalTitle {
+	position: relative;
+    top: 210px;
+}
+
+@media only screen and (min-width: 1920px) {
+    .promptPromo
+	.ant-modal-header {
+		height: 300px;
+		background-size: 100% 300px;
+    }
+	
+	.promptPromo
+	.modalTitle {
+		position: relative;
+		top: 310px;
+	}
+}
+
+.ant-modal-footer {
+    border-top: 0;
+}
+
+.customButton {
+    background-color: #ac1100 !important;
+    color: white !important;
+    font-family: 'Archer-Bold' !important;
+}
+
+.buttonLink,
+.deleteIcon svg {
+    color: #ac1100 !important;
+}
+
+.radio {
+	font-family: 'Archer-Bold' !important;
+}
+
+input[type=radio]:checked ~ span {
+	border: 1px solid #ac1100 !important;
+}
+
+input[type=radio]:checked ~ span::before {
+	background: #ac1100 !important;
+}
+
+.ant-dropdown-trigger {
+    border: 1px solid #ac1100;
+}
+
+.customInput,
+.customInput > div {
+    font-family: 'Archer-Bold' !important;
+}
+
+.customInput label {
+    border-radius: 8px;
+}
+
+.inputLabelTop,
+.inputLabelBottom {
+    font-family: 'Archer-Bold' !important;
+    color: #4a4a4a !important;
+}
+
+.customInput input,
+.customInput input:focus,
+.customInput textarea,
+.customInput textarea:focus {
+    border: 1px solid #4a4a4a !important;
+}
+
+.customInput label {
+    color: #4a4a4a !important;
+}
+
+.customInput textarea {
+    font-family: 'Archer-Bold' !important;
+}
+
+.spotOnLogo {
+    background-color: white;
+}
+
+.imageBox, .cardBox {
+    border-radius: 14px !important; 
+    overflow: hidden !important;
+}
+
+.cardPersonalizeContainer .imageBox{
+	border-radius: 20px !important;
+}
+
+.cardBox:hover {
+	box-shadow: 0 0 0px 1px red;
+}
+
+.cardImage:hover {
+	border: 0 !important;
+}
+
+.ant-btn {
+    color: #ac1100 !important;
+    background: transparent !important;
+    font-family: 'Archer-Bold' !important;
+}
+
+.ant-btn-primary {
+    color: white !important;
+    background-color: #AC1000 !important;
+    font-family: 'Archer-Bold' !important;
+}
+
+.wrapperOuter {
+	background: white 0% 0% no-repeat padding-box !important;
+}
+
+.barcodeHolder {
+	background: black 0% 0% no-repeat padding-box !important;
+}
+
+.barcodeHolder p {
+	color: white !important;
+}
+
+.retailerInfo p {
+	display: none !important;
+}
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+
+	    .checkoutContainer .pageTitle ,.pageTitle {
+		color: white;
+		font-size: 1.3rem !important;
+		font-family:Archer-Bold !important;
+	}
+
+.cardPersonalizeContainer .radioContainer .radioBtns .radio {
+	margin:10px !important; 
+ 
+}
+
+
+.bagHeader .bagTitle {
+
+    color: black;
+
+}
+	.cardDesignContainer .pageSubTitle, .cardDesignContainerFull .pageSubTitle, .cardPersonalizeContainer .pageSubTitle {
+    
+	color: black !important;
+	}
+,
+    .order .pageSubTitle {
+        color: black !important;
+		
+    }
+	
+	.promptPromo .modalHeader {
+		    background-position: center;
+		background-size: cover;
+		background-image: url('./background_textures/g7.png');
+	}
+	
+	.promptPromo .modalHeader {
+    height: 210px;
+	}
+	
+	
+	.footer button:enabled{
+		background-color:  var(--red)  !important; 
+		font-family: 'Archer-Bold' !important;
+	}
+	
+	.bagHeader .bagTitle h3 {
+		font-family: 'Archer-Bold';
+	}
+
+	
+	
+	.bagTitle .closeIcon{
+		color:black  ;
+	}
+/*
+.orderCard {
+    margin: auto;
+    padding: 50px !important;
+    width: 100% !important;
+}
+*/
+
+.orderCard {
+    padding-left: 50px !important;
+    width: 100% !important;
+    padding-right: 50px !important;
+}
+	
+	
+	/****************************/
+	.w100 {
+    width: 100%;
+	}
+	
+	.modalHeader {
+    position: absolute;
+    left: 0;
+    top: 0;
+	}
+	
+
+	.checkoutContainer .footer button:enabled {
+    width: 100%;
+    background: var(--red);
+}
+	
+	
+	
+	/*******/
+
+    .spotOnLogo {
+        display: none;
+    }
+
+    .backIcon {
+        color: white;
+    }
+
+    .cardDesignContainer .pageSubTitle,
+    .cardDesignContainerFull .pageSubTitle,
+    .cardPersonalizeContainer .pageSubTitle {
+        color: black !important;                                    /*changed to black*/
+    }
+
+    .bagTitle {
+        color: white;
+    }
+	
+	.confirmTxt {
+		left: 40% !important;
+	}
+	
+	.promptPromo
+	.ant-modal-header {
+		height: 120px;
+		background-size: 100% 120px;
+	}
+	
+	.promptPromo
+	.modalTitle {
+		top: 110px;
+	}
+}

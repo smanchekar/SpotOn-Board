@@ -1,0 +1,54 @@
+@import "../../styles/table.scss";
+
+.retailers {
+    @include search-bar(20.5rem);
+
+    .add-icon {
+        position: relative;
+        left: 60px;
+        color: white;
+    }
+
+    .add-button {
+        padding-left: 2rem;
+        width: 13.5rem;
+    }
+
+    .list {
+        padding-bottom: 15px;
+        flex-wrap: wrap;
+    }
+}
+
+@include ipad-portrait {
+    .retailers {
+        overflow: auto;
+        @include show-list;
+    }
+}
+
+@include mobile-landscape {
+    .retailers {
+        background-color: $white-smoke;
+        overflow-y: auto;
+
+        .search-bar {
+            @include search-mobile;
+        }
+
+        .list {
+            padding-top: 60px;
+        }
+    }
+}
+
+@include large-desktop {
+    .retailers {
+        .add-icon {
+            // override spoton-lib style
+            width: 60px !important;
+            height: 60px !important;
+            left: 72px;
+        }
+    }
+}

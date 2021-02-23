@@ -1,0 +1,45 @@
+@import '~bootstrap/scss/bootstrap';
+@import 'spoton-lib/styles/text';
+@import './styles/common.scss';
+
+html {
+    font-size: 16px;
+}
+
+body {
+    @extend %global-text-override;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif !important;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+h2,
+h4,
+h5,
+h6,
+p {
+    // override spoton-lib style
+    font-family: 'Lato', sans-serif !important;
+}
+
+p {
+    // override spoton-lib style
+    font-size: 0.94rem !important;
+}
+
+@include large-desktop {
+    html {
+        font-size: 22px;
+    }
+}
+
+@include mobile-portrait {
+    body {
+        position: fixed;
+    }
+}

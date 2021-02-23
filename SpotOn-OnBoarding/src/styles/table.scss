@@ -1,0 +1,82 @@
+@import './common.scss';
+
+@mixin sub-table {
+    width: 62.5%;
+
+    .ant-table-thead > tr > th {
+        background: #fbfbfb;
+        padding-left: 0;
+        border: 0;
+    }
+
+    .ant-table-tbody > tr > td {
+        padding-left: 0;
+        padding-top: 0;
+        border: 0;
+    }
+
+    .ant-table-thead > tr {
+        &:hover {
+            background: white;
+        }
+    }
+}
+
+.ant-table {
+    font-size: 0.94rem;
+
+    h6 {
+        font-size: 0.94rem;
+        color: #0a0a0b;
+    }
+
+    .ant-table-thead > tr > th {
+        background: $gray10;
+        border-bottom: 0;
+        h6 {
+            @include ellipsis;
+            &:hover {
+                @include onhover;
+            }
+        }
+    }
+
+    .ant-table-tbody > tr > td {
+        position: relative;
+        border-top: 0;
+        p {
+            @include ellipsis;
+            &:hover {
+                @include onhover;
+            }
+        }
+    }
+
+    .ant-dropdown-trigger {
+        position: absolute;
+        top: 3px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+    .arrow-icon {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        cursor: pointer;
+    }
+
+    .sub-table {
+        @include sub-table;
+    }
+}
+
+@include large-desktop {
+    .ant-table-tbody > tr > td {
+        .arrow-icon {
+            // override spoton-lib style
+            width: 50px !important;
+            height: 50px !important;
+        }
+    }
+}

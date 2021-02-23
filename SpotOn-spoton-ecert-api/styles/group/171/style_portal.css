@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'Archer-Bold';
+    font-style: normal;
+    src: local('Archer-Bold'), url(./fonts/Archer-Bold.otf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Eveleth-Regular';
+    font-style: normal;
+    src: local('Eveleth-Regular'), url('./fonts/Eveleth-Regular.otf') format('truetype');
+}
+
+.header {
+    background: url('./background_textures/chalkboard_texture.jpg') center top repeat !important;
+}
+
+.group-md {
+	background: url('./background_textures/chalkboard_texture_full.jpg') center center fixed no-repeat !important;
+	background-size: cover !important;
+}
+
+.footer {
+	background-color: hsl(0, 0%, 0%) !important;
+}
+
+.header-text,
+.group-name {
+	color: white !important;
+}
+
+.page-title h2,
+.page-title h3,
+.faq-title {
+    font-family: 'Eveleth-Regular' !important;
+}
+
+.layout {
+	background: url('./background_textures/brushed_metal.jpg') center center fixed no-repeat !important;
+    background-size: cover !important;
+}
+
+.use-now,
+.sub2-bold:nth-of-type(2),
+.sub2-bold:nth-of-type(3),
+.card-detail
+.paragraph:first-of-type {
+	display: none !important;
+}
+
+.use-now,
+.buy-btn {
+	background-color: #ac1100 !important;
+    color: white !important;
+    font-family: 'Archer-Bold' !important;
+}
+
+.print-btn {
+	color: rgb(207,10,44) !important;
+}
+
+.sub1,
+.sub2,
+.sub2-bold,
+.paragraph,
+.label,
+.value,
+.print-btn,
+.link,
+.card-name,
+.order-name,
+.faq-block-title {
+	font-family: 'Archer-Bold' !important;
+}
+
+.label {
+	color: #bfbfbf;
+}
+
+.value {
+	font-size: 1rem !important;
+}
+
+.text-group h4,
+.card-name {
+	font-size: 1.25rem !important;
+}
+
+.order-card {
+	background: transparent;
+	border-style: solid;
+	border-width: 1px 1px 8px;
+    border-color: hsl(0,0%,17%);
+}
+
+a, .link {
+	color: rgb(207,10,44) !important;
+}
+
+a:hover,
+.link:hover {
+	color: hsl(350,92%,54%) !important;
+	text-decoration: none !important;
+}

@@ -1,0 +1,228 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+:root {
+  --grey: #5C5C5C;
+  
+}
+
+
+.promptPromo
+.ant-modal-header {
+	height: 200px;
+    margin-bottom: 50px;
+    background-image: url('./Mask_Group.png');
+    background-size: 100% 200px;
+}
+
+.promptPromo
+.modalTitle {
+	position: relative;
+    top: 210px;
+}
+
+.layout .innerLayout {
+    background-color: #E5E5E5;
+}
+
+.layout .header .bagButton .bagIcon {
+ content: url('./images/New%20Bag%20.png') !important;
+}
+ 
+ .layout .header .bagButton .bagLabelPlum,
+.layout .header .bagButton .bagLabelAqua {
+    color: var(--grey);
+}
+.pageTitle ,.pageSubTitle{
+	color: var(--grey);
+}
+
+.layout .header .bagButton {
+	border: 1px solid  var(--grey);
+}
+
+.layout .header .retailerLogo {
+    left: 48%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: fixed;
+    display: block;
+}
+
+.layout .header .poweredBy {
+     border-left: 0px;
+}	
+
+.bagEmpty .ant-drawer-body {
+    background: url('./images/Group.png') center center no-repeat !important;
+}
+
+.bagTitle,
+.bagHeader,
+.emptyBagText{
+	color: var(--grey);
+}
+
+.bagHeader{
+	background: #E5E5E5 !important;
+    box-shadow: 0px 1px 1px 0px var(--grey);
+}
+
+.bagContainer .ant-drawer-body {
+ 
+    border-left: 1px solid var(--grey);
+}
+
+.backButton .backIcon svg,
+.backButton .button2{
+	color: var(--grey) !important;
+}
+
+
+.formContainer .priceContainer .priceTags button {
+    background-color: white;
+    color: var(--grey);
+}
+
+.formContainer .priceContainer .priceTags button[class*='selected'] {
+    background-color: var(--grey);
+    color: white;
+}
+
+.customInput label {
+    border-radius: 8px;
+}
+
+.cardPersonalizeContainer  .submitBtn:enabled {
+	background-color: white !important;
+	color: var(--grey);
+}
+
+.editButton{
+		color: var(--grey);
+}
+.editButton:hover{
+		color: var(--grey);
+}
+
+
+.bagFooter{
+	background: #E5E5E5 !important ;
+}
+
+
+.bagFooter button{
+    background-color: white !important;
+    color: var(--grey);
+}
+
+/*
+.bagFooter button:disabled 
+{
+    background-color: white !important;
+    color:  var(--grey);
+    
+}
+*/
+
+.bagFooter button:hover:enabled{
+    background-color: white !important;
+   color:  var(--grey);
+}
+
+.bagContainer .ant-drawer-content {
+    background-color: #E5E5E5 ;
+}
+
+.bagItem {
+    zoom: 0.9;
+    background: rgba(92,92,92,.5);
+    padding: 16px;
+}
+
+ .bagItem .cardInfo p{
+	 color:white !important;
+	 
+ }
+
+.editIcon svg{
+	color:white !important;
+}
+
+.buttonLink,
+.deleteIcon svg {
+    color: white !important;
+}
+
+.cardWrapper .removeBtn {
+     background-color: #E5E5E5 !important;
+}
+
+.Number label,
+.Expiry label,
+.CVV label,
+.Expiry label{
+	border-radius:8px;
+}
+
+
+.orderCard {
+	padding-top: 1.5rem;
+    background-color: rgb(242,242,242,0.5) !important;
+    margin-top: 0rem !important;
+    box-shadow: none !important;
+    padding-left: 100px;
+}
+
+
+.orderConfirmation .orderInfo {
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: rgb(242,242,242,0.5) !important;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.orderConfirmation .homeButton {
+    color: #676B6C !important;
+    border: 1px solid #5C5C5C !important;
+    background: white;
+}
+
+.orderConfirmation {
+    background-color: white;
+}
+
+.confirmMsgTxt ,
+.confirmOrderNum ,
+.textGroup label 
+{
+	color: #5C5C5C ;
+}
+
+@media only screen and (min-width: 1920px) {
+    .promptPromo
+	.ant-modal-header {
+		height: 300px;
+		background-size: 100% 300px;
+    }
+	
+	.promptPromo
+	.modalTitle {
+		position: relative;
+		top: 310px;
+	}
+}
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+	.promptPromo
+	.ant-modal-header {
+		height: 120px;
+		background-size: 100% 120px;
+	}
+	
+	.promptPromo
+	.modalTitle {
+		top: 110px;
+	}
+}

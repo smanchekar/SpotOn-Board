@@ -1,0 +1,75 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap'); */
+
+.cardDesignContainer,
+.cardDesignContainerFull,
+.cardPersonalizeContainer,
+.checkoutContainer,
+.bagContainer,
+.bagHeader,
+.bagFooter,
+.order,
+.layout,
+.main,
+.innerLayout,
+.bagFooterMobile,
+.buttonGroup,
+.footer {
+    background: transparent !important;
+}
+
+.header {
+	background: url(./TRG_GiftCards_Banners_SpotOn_Oct2020-02.jpg) center right no-repeat !important;
+    background-size: calc(100% - 120px) 72px !important;
+}
+
+body {
+    background: url('./TRG_GiftCards_Banners_SpotOn_Oct2020-03.jpg') center center fixed no-repeat !important;
+    background-size: cover !important;
+}
+
+.promptPromo
+.ant-modal-header {
+	height: 200px;
+    margin-bottom: 50px;
+    background-image: url('./thunderdome_modal.png');
+    background-size: 100% 200px;
+}
+
+.promptPromo
+.modalTitle {
+	position: relative;
+    top: 210px;
+}
+
+@media only screen and (min-width: 1920px) {
+    .promptPromo
+	.ant-modal-header {
+		height: 300px;
+		background-size: 100% 300px;
+    }
+	
+	.promptPromo
+	.modalTitle {
+		position: relative;
+		top: 310px;
+	}
+}
+
+@media screen and (max-width: 1023px) and (max-width: 767px) {
+	.header,
+	.footer,
+	.buttonGroup {
+		background: white !important;
+	}
+	
+	.promptPromo
+	.ant-modal-header {
+		height: 120px;
+		background-size: 100% 120px;
+	}
+	
+	.promptPromo
+	.modalTitle {
+		top: 110px;
+	}
+}
