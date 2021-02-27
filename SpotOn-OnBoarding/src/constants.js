@@ -63,7 +63,8 @@ export const constants = {
         USER: 2,
     },
     // BASE_URL: "http://10.6.6.132:4040/",
-    BASE_URL: "http://192.168.56.1:4040",
+    //BASE_URL: "http://192.168.99.1:4040",
+    BASE_URL: "http://localhost:4040",
 
     BASE_IMAGE_URL: "https://spoton-test.s3.ap-south-1.amazonaws.com/images/",
 

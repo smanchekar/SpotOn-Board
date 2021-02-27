@@ -9,12 +9,12 @@ const URL = constants.BASE_URL + "/graphql";
 const instance = new ApolloClient({
     uri: URL,
     request: async (operation) => {
-        const user = storage.getUser();
-        const token = user ? user.jwttoken : "";
-        if (token.length > 0) {
+        const token = storage.getUser()?.token;
+        console.log(token);
+        if (token) {
             operation.setContext({
                 headers: {
-                    "x-authorization": "Bearer " + token,
+                    "x-authorization": token,
                 },
             });
         }
@@ -25,18 +25,8 @@ export default class ApolloClientService {
     _instance: any;
     constructor() {
         this._instance = instance;
+        console.log(instance);
     }
-
-    // handlException(ex:any) {
-    //     if (ex.graphQLErrors !== undefined && ex.graphQLErrors.length > 0) {
-    //         let error = ex.graphQLErrors[0];
-    //         if (ex.networkError !== undefined) {
-    //             console.log('network error', ex.networkError);
-    //             return undefined;
-    //         }
-    //         return undefined;
-    //     }
-    // }
 
     handlException(ex: any) {
         if (ex.graphQLErrors !== undefined && ex.graphQLErrors.length > 0) {
@@ -70,7 +60,6 @@ export default class ApolloClientService {
                             roleid
                             status
                             message
-                            jwttoken
                         }
                     }
                 `,
@@ -183,58 +172,37 @@ export default class ApolloClientService {
         }
     }
 
-    async getCardDesigns(retailerid: number) {
+    async getAllRetailers(filter: Filter) {
         try {
+            console.log("getAllRetailers...", filter);
             let data = await this._instance.query({
                 query: gql`
-                    query carddesigns($retailerid: Int!) {
-                        carddesigns(retailerid: $retailerid) {
-                            catid
-                            catdesc
-                            cards {
-                                cardid
-                                carddesc
-                                cardimagename
-                                carddisplayorder
-                                styles
+                    query allRetailers($filter: Filter!) {
+                        allRetailers(input: $filter) {
+                            retailers {
+                                groupId
+                                merchantId
+                                retailerId
+                                retailerName
+                                retailerLogo
+                                retailerActive
+                                retailerProfiles {
+                                    retailerprofilename
+                                    retailerprofilevalue
+                                }
                             }
+                            status
+                            message
+                            total
                         }
                     }
                 `,
                 variables: {
-                    retailerid,
+                    filter,
                 },
                 fetchPolicy: "no-cache",
             });
-            return data.data ? data.data.carddesigns : undefined;
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async getAllRetailers() {
-        try {
-            console.log("getAllRetailers...");
-            let data = await this._instance.query({
-                query: gql`
-                    query {
-                        allRetailers {
-                            retailerId
-                            groupId
-                            merchantId
-                            retailerName
-                            retailerActive
-                            retailerProfiles {
-                                retailerprofilename
-                                retailerprofilevalue
-                            }
-                        }
-                    }
-                `,
-                fetchPolicy: "no-cache",
-            });
-            console.log(data.data.allRetailers);
+            console.log("in getAll retailer", data.data);
             return data.data ? data.data.allRetailers : undefined;
         } catch (ex) {
             console.log("errorrro", ex);
@@ -337,177 +305,6 @@ export default class ApolloClientService {
             });
             console.log("getUsers...", data.data);
             return data.data ? data.data.users : { status: 1 };
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async getOrders(filter: Filter) {
-        try {
-            console.log("getOrders...");
-            let data = await this._instance.query({
-                query: gql`
-                    query orders($filter: Filter!) {
-                        orders(filter: $filter) {
-                            orders {
-                                orderno
-                                orderdate
-                                ordertotal
-                                orderstatus
-                                paymentdetails {
-                                    ipdcctype
-                                    ipdpcnoquad
-                                    ipdstatus
-                                    ipdtransid
-                                    ipddate
-                                    ipdmessage
-                                }
-                                merchant {
-                                    merchantId
-                                    merchantname
-                                }
-                                group {
-                                    groupId
-                                    groupname
-                                }
-                                lineitems {
-                                    carddetid
-                                    lineitemid
-                                    denomination
-                                    personalmessage
-                                    cardsenderinfo {
-                                        sendername
-                                        senderemail
-                                    }
-                                    cardrecipientinfo {
-                                        recipientname
-                                        recipientemail
-                                    }
-                                    emailreminders
-                                    cardimage
-                                    reissuecarddet {
-                                        reissuedate
-                                        carddetid
-                                    }
-                                    clientcardsrno
-                                    cleansedgcnumber
-                                    retailerid
-                                    card {
-                                        cardimagename
-                                    }
-                                    shipdate
-                                }
-                            }
-                            status
-                            message
-                            total
-                        }
-                    }
-                `,
-                variables: {
-                    filter,
-                },
-                fetchPolicy: "no-cache",
-            });
-            console.log("getOrders...", data.data);
-            return data.data ? data.data.orders : undefined;
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async createGroup(profileInfo: any) {
-        try {
-            console.log("createGroup...");
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation createGroup($profileInfo: String!) {
-                        createGroup(profileInfo: $profileInfo) {
-                            retailerId
-                            groupId
-                        }
-                    }
-                `,
-                variables: {
-                    profileInfo,
-                },
-                fetchPolicy: "no-cache",
-            });
-            return data.data ? data.data.createGroup : undefined;
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async updateGroup(profileInfo: any) {
-        try {
-            console.log("updateGroup...");
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation updateGroup($profileInfo: String!) {
-                        updateGroup(profileInfo: $profileInfo) {
-                            status
-                            message
-                        }
-                    }
-                `,
-                variables: {
-                    profileInfo,
-                },
-                fetchPolicy: "no-cache",
-            });
-            return data.data ? data.data.updateGroup : undefined;
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async createCard(cardinfo: any) {
-        try {
-            console.log("createCard...");
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation createCard($cardinfo: String!) {
-                        createCard(cardinfo: $cardinfo) {
-                            cardid
-                            cardimagename
-                        }
-                    }
-                `,
-                variables: {
-                    cardinfo,
-                },
-                fetchPolicy: "no-cache",
-            });
-            return data.data ? data.data.createCard : undefined;
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async updateCard(cardinfo: any) {
-        try {
-            console.log("updateCard...");
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation updateCard($cardinfo: String!) {
-                        updateCard(cardinfo: $cardinfo) {
-                            message
-                            status
-                        }
-                    }
-                `,
-                variables: {
-                    cardinfo,
-                },
-                fetchPolicy: "no-cache",
-            });
-            return data.data ? data.data.updateCard : undefined;
         } catch (ex) {
             console.log("errorrro", ex);
             return this.handlException(ex);

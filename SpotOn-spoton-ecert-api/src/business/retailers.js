@@ -13,21 +13,138 @@ let retailers = spotonschemamodels.retailer;
 class Retailers {
     constructor() {
         //GET ALL RETAILERS
-        this.getAllRetailers = async () => {
-            return spotonschemamodels.retailer
-                .findAll({
+        this.getAllRetailers = async (input, context) => {
+            if (input.searchText === "") {
+                const limit = input.pageSize;
+                const offset = (input.pageNo - 1) * input.pageSize;
+                console.log("limit", limit);
+                console.log("offset", offset);
+
+                let retailers = await spotonschemamodels.retailer.findAll({
+                    limit: limit,
+                    offset: offset,
                     include: [
                         {
                             model: spotonschemamodels.retailerprofile,
                         },
                     ],
-                })
-                .then((data) => {
-                    return data;
-                })
-                .catch((err) => {
-                    console.log("", err);
+                    order: [["retailerid", "ASC"]],
                 });
+                if (retailers) {
+                    let status = config.successResponse.status;
+                    let message = config.successResponse.message;
+                    let total = await spotonschemamodels.retailer.count();
+                    console.log(status, message);
+                    return { retailers, total, status, message };
+                } else {
+                    let status = config.failedResponse.status;
+                    let message = config.failedResponse.message;
+                    return { retailers, total, status, message };
+                }
+
+                // .then((data) => {
+                //     const count = spotonschemamodels.retailer
+                //         .count()
+                //         .then((res) => console.log(res));
+                //     total: count;
+                //     console.log(data);
+                //     return data;
+                // })
+                // .catch((err) => {
+                //     console.log("", err);
+                // });
+            } else {
+                console.log("in search retaiers");
+                return this.searchRetailers(input).then((data) => {
+                    console.log("in search return", data);
+                    return data;
+                });
+            }
+        };
+
+        this.searchRetailers = async (input) => {
+            //   console.log("searchtext", input.searchText);
+            // console.log("searchType", input.searchType);
+
+            if (input.searchType === "any") {
+                const limit = input.pageSize;
+                const offset = (input.pageNo - 1) * input.pageSize;
+                console.log("limit", limit);
+                console.log("offset", offset);
+
+                let retailers = await spotonschemamodels.retailer.findAll({
+                    limit: limit,
+                    offset: offset,
+                    include: [
+                        {
+                            model: spotonschemamodels.retailerprofile,
+                        },
+                    ],
+                    order: [["retailerid", "ASC"]],
+                    where: {
+                        [Op.or]: [
+                            {
+                                groupid: input.searchText,
+                            },
+                            {
+                                merchantid: input.searchText,
+                            },
+                            {
+                                retailername: {
+                                    [Sequelize.Op.iLike]:
+                                        input.searchText + "%",
+                                },
+                            },
+                        ],
+                    },
+                });
+                if (retailers.length != 0) {
+                    let total = await retailers.length;
+                    let status = config.successResponse.status;
+                    let message = config.successResponse.message;
+                    return { retailers, total, status, message };
+                } else {
+                    let total = await retailers.length;
+                    let status = config.failedResponse.status;
+                    let message = config.failedResponse.message;
+                    return { retailers, total, status, message };
+                }
+                // .then((res) => {
+                //     console.log(res);
+                //     if (res.length === 0) {
+                //         return [];
+                //         // return spotonschemamodels.retailer.findAll({
+                //         //     include: [
+                //         //         {
+                //         //             model:
+                //         //                 spotonschemamodels.retailerprofile,
+                //         //         },
+                //         //     ],
+                //         //     where: { groupid: config.defaultGroupId },
+                //         // });
+            } else {
+                return res;
+            }
+            // });
+        };
+
+        this.createRetailer = async (args) => {
+            try {
+                console.log("in busineess", args);
+                // const result = await sequelize.transaction(async (t) => {
+                //     // const user = await sagar.create(
+                //     //     {
+                //     //         firstName: "Abraham",
+                //     //         lastName: "Lincoln",
+                //     //     },
+                //     //     { transaction: t }
+                //     // );
+                //     console.log("in busineess");
+                //     //  return user;
+                // });
+            } catch (error) {
+                console.log(error);
+            }
         };
 
         this.getRetailerByMerchantId = (groupid, merchantid) => {

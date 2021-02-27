@@ -126,8 +126,8 @@ export default function LazyLoader(
                 });
                 return;
             }
-            console.log(res[key]);
-            const next = res;
+
+            const next = res[key];
             const { current, pageSize } = filter;
             this.setState({
                 isLoading: false,

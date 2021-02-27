@@ -1,3 +1,10 @@
+input RetailerType {
+    retailerId: Int
+    retailerName: String
+    groupId: String
+    merchantId: String
+}
+
 type Retailer {
     retailerId: Int
     groupId: String
@@ -12,6 +19,12 @@ type Retailer {
     bannerName: String
 }
 
+type AllRetailers {
+    retailers: [Retailer]
+    total: Int
+    status: Int
+    message: String
+}
 type RetailerCardDesign {
     catid: Int
     catdesc: String
@@ -52,6 +65,19 @@ type MerchantInfo {
     message: String
 }
 
+input Filter {
+    "searchText can be groupid, merchant id, retailer name"
+    searchText: String
+    "searchType can be any, groupid, merchantid, retailername"
+    searchType: String
+    "number of records to display, default 10"
+    pageSize: Int
+    "page number to be returned, default is 1"
+    pageNo: Int
+    order: String
+    orderBy: String
+}
+
 type Query {
     retailer(
         groupid: String
@@ -62,5 +88,11 @@ type Query {
     analytics: GoogleAnalytics
     merchant(merchantid: String!): MerchantInfo
 
-    allRetailers: [Retailer]
+    allRetailers(input: Filter!): AllRetailers
+
+    searchRetailers(input: Filter!): [Retailer]
+}
+
+type Mutation {
+    createRetailer(input: RetailerType!): Retailer
 }

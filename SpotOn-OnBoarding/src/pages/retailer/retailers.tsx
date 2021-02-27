@@ -1,6 +1,5 @@
 import React from "react";
 import RetailerTable from "./retailer.table";
-//import UserCard from '../../components/user-card/user-card';
 import "./retailer.scss";
 import {
     Search,
@@ -24,8 +23,10 @@ interface UsersProps extends SuspenseProps {
 }
 
 function Retailers({ handlePagination, ...props }: UsersProps) {
-    const { dataArray: retailers } = props;
+    //   const { dataArray: retailers } = props;
 
+    const { dataArray, searchValue } = props;
+    console.log("in retailer.tsx", dataArray);
     /**
      * Handles remove user
      */
@@ -64,7 +65,7 @@ function Retailers({ handlePagination, ...props }: UsersProps) {
         // });
     };
 
-    const { searchValue } = props;
+    //  const { searchValue } = props;
 
     return (
         <Container fluid className="h-100 retailers" ref={props.listRef}>
@@ -106,7 +107,7 @@ function Retailers({ handlePagination, ...props }: UsersProps) {
                 </Col> */}
                 <Col className="table d-none d-md-block">
                     <RetailerTable
-                        retailers={retailers}
+                        retailers={dataArray}
                         removeRetailer={handleRemove}
                         handlePagination={handlePagination}
                         pagination={props.pagination}
@@ -118,9 +119,9 @@ function Retailers({ handlePagination, ...props }: UsersProps) {
 }
 
 const options = {
-    key: "users",
-    // query: (filter: any) => new Service().getUsers(filter),
-    query: () => new Service().getAllRetailers(),
+    key: "retailers",
+    query: (filter: any) => new Service().getAllRetailers(filter),
+    //   query: () => new Service().getAllRetailers(),
 };
 
 export default LazyLoader(Retailers, options);

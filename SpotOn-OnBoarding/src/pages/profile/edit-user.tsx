@@ -175,9 +175,9 @@ function EditUser(props: EditUserProps) {
                         {getInputWrapper(InputNames.RETAILERNAME)(
                             <Input type="text" label="Retailer Name" />
                         )}
-                        {getInputWrapper(InputNames.RETAILERACTIVE)(
+                        {/* {getInputWrapper(InputNames.RETAILERACTIVE)(
                             <Input type="text" label="Retailer Active" />
-                        )}
+                        )} */}
                         {getInputWrapper(InputNames.GROUPID)(
                             <Input type="text" label="GroupId" />
                         )}
@@ -185,7 +185,7 @@ function EditUser(props: EditUserProps) {
                             <Input type="text" label="Merchant Id" />
                         )}
 
-                        {state.retailerProfiles.map((item: any) => {
+                        {/* {state.retailerProfiles.map((item: any) => {
                             return (
                                 <div className="w-100">
                                     <Input
@@ -195,7 +195,7 @@ function EditUser(props: EditUserProps) {
                                     />
                                 </div>
                             );
-                        })}
+                        })} */}
                     </div>
                 </Row>
             </Col>

@@ -19,32 +19,11 @@ class Users {
             return users.findAll();
         };
 
-        // (this.getUser = (args, password) => {
-        //     console.log("in busineess of user", args.email);
-        //     //   return users.findAll().then((res) => console.log(res));
-        //     console.log(convert_to(args.password, "LATIN1"));
-        //     return users.findOne({
-        //         where: {
-        //             [Op.and]: [
-        //                 {
-        //                     email: {
-        //                         [Op.like]: args.email,
-        //                     },
-        //                 },
-        //                 {
-        //                     password: {
-        //                         [Op.like]: convert_to(args.password, "LATIN1"),
-        //                         //Buffer.from(args.password),
-        //                     },
-        //                 },
-        //             ],
-        //         },
-        //     });
-        // }),
-        //     (this.getUserbyid = (args, password) => {
-        //         console.log("in busineess of user", args);
-        //         return users.findByPk(args.uid);
-        //     });
+        /**
+         * Returns a single user.
+         * @param {*} uid Unique ID of user
+         */
+        this.getUserById = (uid) => users.findOne({ where: { uid } });
 
         this.getUser = async ({ email, password }) => {
             try {
@@ -56,7 +35,10 @@ class Users {
                     ); // Step2: Password check
                     if (!ismatch) {
                         console.log("wrong password ");
-                        return;
+                        return {
+                            status: config.failed,
+                            message: config.errors.wrongPassword,
+                        };
                     }
 
                     //  JWT token.
@@ -65,14 +47,22 @@ class Users {
                         user.dataValues,
                         config.jwttokenkey
                     );
-                    console.log(accessToken);
+                    // console.log(accessToken);
                     //console.log(user);
                     //console.log(config.jwttokenkey);
                     user.jwttoken = accessToken;
-                    user.status = 0;
+                    user.status = config.successResponse.status;
+                    user.message = config.successResponse.message;
+                    user.token = accessToken;
+                    //console.log(user);
                     return user;
+                } else {
+                    console.log("wrong email");
+                    return {
+                        status: config.failed,
+                        message: config.errors.invalidEmail,
+                    };
                 }
-                console.log("wrong email");
             } catch (err) {
                 console.log(err);
             }

@@ -20,9 +20,10 @@ interface RetailersTableProps {
 }
 
 const RetailerTable = ({ retailers, ...props }: RetailersTableProps) => {
+    console.log("in retailer table", retailers);
     const columns = [
         {
-            title: <Text type={TextTypes.SUB3}> RetailerID</Text>,
+            title: <Text type={TextTypes.SUB3}>Retailer Id</Text>,
             dataIndex: "retailerId",
             key: "retailerId",
             sorter: true,
@@ -46,7 +47,7 @@ const RetailerTable = ({ retailers, ...props }: RetailersTableProps) => {
             sorter: true,
             render: (number: any) => <Text type={TextTypes.P}> {number} </Text>,
             ellipsis: true,
-            width: "15%",
+            width: "25%",
         },
         {
             title: <Text type={TextTypes.SUB3}>Retailer Name</Text>,
@@ -55,18 +56,9 @@ const RetailerTable = ({ retailers, ...props }: RetailersTableProps) => {
             sorter: true,
             render: (text: string) => <Text type={TextTypes.P}> {text} </Text>,
             ellipsis: true,
-            width: "25%",
+            width: "35%",
         },
-        {
-            title: <Text type={TextTypes.SUB3}>Retailer Active</Text>,
-            dataIndex: "retailerActive",
-            key: "retailerActive",
-            sorter: true,
 
-            render: (text: string) => <Text type={TextTypes.P}> {text} </Text>,
-            ellipsis: true,
-            width: "15%",
-        },
         {
             title: "",
             key: "action",

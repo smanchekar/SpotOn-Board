@@ -38,14 +38,25 @@ module.exports = {
 
     successResponse: {
         message: "Success",
-        status: true,
+        status: 0,
     },
 
     failedResponse: {
         message: "Something went wrong. Please try again",
-        status: false,
+        status: 1,
     },
-
+    errors: {
+        userNotExist: "User does not exist",
+        invalidEmail: "Email address not found",
+        role: "Invalid role",
+        userNotActive: "User not active",
+        wrongPassword: "Invalid password",
+        emailAlreadyExist: "User email address already exist",
+        unauthorizedAccess: "User not allowed not access requested resource",
+        passwordInputErr: "User password not provided in input",
+        passwordChangeErr: "Failed to update user password",
+        invalidToken: "Invalid token",
+    },
     algorithm: process.env.algorithm,
     success: 0,
     failed: 1,

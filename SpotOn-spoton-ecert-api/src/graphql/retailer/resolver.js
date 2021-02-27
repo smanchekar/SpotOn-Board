@@ -5,11 +5,17 @@
 
 import Retailers from "../../business/retailers";
 import config from "../../../config/config";
+import util from "../../business/util";
 export const resolver = {
     Query: {
         //TO GET ALL RETAILERS
-        allRetailers() {
-            return Retailers.getAllRetailers();
+        allRetailers(root, args, context) {
+            console.log("in args of retailers", args);
+            return util.verifyUser(context.token).then((data) => {
+                let decoded = data;
+                console.log("decoded", decoded);
+                return Retailers.getAllRetailers(args.input);
+            });
         },
 
         retailer(root, args, context) {
@@ -29,6 +35,13 @@ export const resolver = {
 
         merchant(root, args) {
             return Retailers.getMerchantData(args);
+        },
+    },
+
+    Mutation: {
+        createRetailer(root, args, context) {
+            console.log("in createRetailer", args);
+            return Retailers.createRetailer(args);
         },
     },
 

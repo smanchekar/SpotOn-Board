@@ -38,13 +38,10 @@ function Login(props: LoginProps) {
      * Handles form submit
      */
     const handleSubmit = async () => {
-        // const handleSubmit = () => {
-        console.log("iiiin login", props.input);
-        //props.history.push("/groups");
+        console.log("in login", props.input);
 
         const { email, password } = props.input;
         const res = await showLoader(new Service().login(email, password));
-        console.log("hhwbdhwbdhbwh", res);
 
         if (res?.status === 0) {
             props.login(res);

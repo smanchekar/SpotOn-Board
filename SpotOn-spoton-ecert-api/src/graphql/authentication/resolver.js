@@ -21,9 +21,7 @@ import config from "../../../config/config";
 export const resolver = {
     Query: {
         login(root, args, context) {
-            console.log("inside user");
-
-            console.log(args);
+            console.log("inside user", args);
 
             return Users.getUser(args);
         },

@@ -38,3 +38,7 @@ jspm_packages
 "sendgrid.env" 
 "sendgrid.env" 
 sql_scripts/promo_changes.sql
+
+
+#env variable file
+.env

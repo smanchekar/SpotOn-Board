@@ -12,26 +12,23 @@ import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
 
 import Retailers from "../retailer/retailers";
-import Orders from "../orders/orders";
 
 import Profile from "../profile/Profile";
 import EditUser from "../profile/edit-user";
 
-// import OrderDetail from '../order-detail/order-detail';
-import Success from "../Success";
 import NoRouteFound from "../404/404.view";
 import storage from "../../services/localStorage.service";
 import util from "../../util";
-//import Groups from "../groups/groups";
 
 function Layout({ history }: any) {
     const { pathname } = history.location;
     const [user, setUser] = useState(storage.getUser());
 
     const login = (res: any) => {
+        console.log(res);
         storage.setUser(res);
         console.log("in layout");
-        history.push("/profile");
+        history.push("/retailers");
         setUser(res);
     };
 
@@ -65,7 +62,7 @@ function Layout({ history }: any) {
                 path={["/", "/login"]}
                 render={(props) => {
                     return user !== null ? (
-                        <Redirect to="/profile" />
+                        <Redirect to="/retailers" />
                     ) : (
                         <Login {...props} login={login} />
                     );
@@ -76,105 +73,85 @@ function Layout({ history }: any) {
                 path="/forgot-password"
                 render={(props) => <ForgotPassword {...props} />}
             />
-            {/* {(user !== null || !isDashboard) && ( */}
-            <React.Fragment>
-                <Header
-                    history={history}
-                    handlePathChange={handlePathChange}
-                    isDashboard={isDashboard}
-                />
-                <Row
-                    className={
-                        "layout" +
-                        ((!hasFooter ? " no-footer" : "") +
-                            (!isDashboard ? " no-header" : ""))
-                    }
-                >
-                    {isDashboard && (
-                        <Sidebar
-                            links={util.getRoutes(user?.roleid)}
-                            onSelectLink={handlePathChange}
-                            footerLink={{ path: "/login", title: "Logout" }}
-                            currentPath={pathname}
-                        />
-                    )}
-                    <Col
+            {(user !== null || !isDashboard) && (
+                <React.Fragment>
+                    <Header
+                        history={history}
+                        handlePathChange={handlePathChange}
+                        isDashboard={isDashboard}
+                    />
+                    <Row
                         className={
-                            "h-100 content" + (hasCards ? " has-cards" : "")
+                            "layout" +
+                            ((!hasFooter ? " no-footer" : "") +
+                                (!isDashboard ? " no-header" : ""))
                         }
                     >
-                        <Switch>
-                            <Route
-                                exact
-                                path="/reset-password/:token"
-                                render={(props: any) => (
-                                    <ResetPassword {...props} />
-                                )}
+                        {isDashboard && (
+                            <Sidebar
+                                links={util.getRoutes(user?.roleid)}
+                                onSelectLink={handlePathChange}
+                                footerLink={{ path: "/login", title: "Logout" }}
+                                currentPath={pathname}
                             />
-                            <Route
-                                exact
-                                path="/set-password/:token"
-                                render={(props: any) => (
-                                    <ResetPassword {...props} />
-                                )}
-                            />
-                            <Route
-                                path="/orders"
-                                exact
-                                render={(props) => <Orders {...props} />}
-                            />
-                            <Route
-                                path="/retailers"
-                                exact
-                                render={(props) => <Retailers {...props} />}
-                            />
+                        )}
+                        <Col
+                            className={
+                                "h-100 content" + (hasCards ? " has-cards" : "")
+                            }
+                        >
+                            <Switch>
+                                <Route
+                                    exact
+                                    path="/reset-password/:token"
+                                    render={(props: any) => (
+                                        <ResetPassword {...props} />
+                                    )}
+                                />
+                                <Route
+                                    exact
+                                    path="/set-password/:token"
+                                    render={(props: any) => (
+                                        <ResetPassword {...props} />
+                                    )}
+                                />
 
-                            <Route
-                                path="/profile"
-                                exact
-                                render={(props) => <Profile {...props} />}
-                            />
-                            <Route
-                                path="/retailers/add"
-                                exact
-                                render={(props) => <EditUser {...props} />}
-                            />
-                            <Route
-                                path="/retailers/edit/:uid"
-                                exact
-                                render={(props) => <EditUser {...props} />}
-                            />
-                            {/*   <Route
-                                    path="/users"
+                                <Route
+                                    path="/retailers"
                                     exact
-                                    render={(props) => <Users {...props} />}
-                                /> */}
-                            {/* <Route
-                                path="/orders"
-                                exact
-                                render={(props) => <Orders {...props} />} */}
-                            {/* /> */}
-                            {/* <Route
-                                    path="/orders/detail/:orderno"
+                                    render={(props) => <Retailers {...props} />}
+                                />
+
+                                <Route
+                                    path="/profile"
                                     exact
-                                    render={(props) => <OrderDetail {...props} />}
-                                /> */}
-                            {/* <Route render={(props) => <NoRouteFound {...props} />} /> */}
-                            <Route
-                                path="/retailers"
-                                exact
-                                render={(props) => <Retailers {...props} />}
-                            />
-                            <Route
-                                exact
-                                path="/groups"
-                                render={(props: any) => <Success {...props} />}
-                            />
-                        </Switch>
-                    </Col>
-                </Row>
-            </React.Fragment>
-            {/* )} */}
+                                    render={(props) => <Profile {...props} />}
+                                />
+                                <Route
+                                    path="/retailers/add"
+                                    exact
+                                    render={(props) => <EditUser {...props} />}
+                                />
+                                <Route
+                                    path="/retailers/edit/:uid"
+                                    exact
+                                    render={(props) => <EditUser {...props} />}
+                                />
+                                <Route
+                                    path="/retailers"
+                                    exact
+                                    render={(props) => <Retailers {...props} />}
+                                />
+                                <Route
+                                    render={(props) => (
+                                        <NoRouteFound {...props} />
+                                    )}
+                                />
+                            </Switch>
+                        </Col>
+                    </Row>
+                </React.Fragment>
+            )}
             <NoRouteFound history={history} />
         </Container>
     );
