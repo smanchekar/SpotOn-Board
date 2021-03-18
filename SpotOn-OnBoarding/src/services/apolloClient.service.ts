@@ -3,7 +3,11 @@ import gql from "graphql-tag";
 import storage from "./localStorage.service";
 import { constants } from "../constants";
 
-import { UserInput, Filter } from "../types/graphql-global-types";
+import {
+    UserInput,
+    Filter,
+    RetailerInput,
+} from "../types/graphql-global-types";
 const URL = constants.BASE_URL + "/graphql";
 
 const instance = new ApolloClient({
@@ -243,19 +247,49 @@ export default class ApolloClientService {
             return this.handlException(ex);
         }
     }
-    async addEditUser(input: UserInput, uid?: string) {
-        const { password, ...common } = input;
-        const { newPassword }: any = password;
+
+    async allCategories() {
         try {
-            console.log("addEditUser...");
+            console.log("in all category appolo");
+            let data = await this._instance.query({
+                query: gql`
+                    query allCategories {
+                        allCategories {
+                            categories {
+                                catid
+                                catdesc
+                            }
+                        }
+                    }
+                `,
+                variables: {},
+                fetchPolicy: "no-cache",
+            });
+            console.log("in getAll Categories", data.data);
+            return data.data ? data.data.allCategories : undefined;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async addEditUser(input: RetailerInput, retailerId?: number) {
+        console.log("retailerId", retailerId);
+
+        const { ...common } = input;
+        // const { newPassword }: any = password;
+        try {
+            console.log("addEditRetailer...");
             let data = await this._instance.mutate({
                 mutation: gql`
-                    mutation addEditUser($input: UserInput!, $uid: String) {
-                        addEditUser(input: $input, uid: $uid) {
-                            uid
-                            firstname
-                            lastname
-                            email
+                    mutation addEditRetailer(
+                        $input: RetailerInput!
+                        $retailerId: Int
+                    ) {
+                        addEditRetailer(
+                            input: $input
+                            retailerId: $retailerId
+                        ) {
+                            retailerId
                             status
                             message
                         }
@@ -264,14 +298,14 @@ export default class ApolloClientService {
                 variables: {
                     input: {
                         ...common,
-                        password: { newPassword },
+                        //  password: { newPassword },
                     },
-                    uid,
+                    retailerId,
                 },
                 fetchPolicy: "no-cache",
             });
-            console.log("addEditUser...", data.data);
-            return data.data ? data.data.addEditUser : { status: 1 };
+            console.log("addEditRetailer...", data.data);
+            return data.data ? data.data.addEditRetailer : { status: 1 };
         } catch (ex) {
             console.log("errorrro", ex);
             return this.handlException(ex);

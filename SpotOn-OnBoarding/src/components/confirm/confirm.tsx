@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
     Modal,
     Text,
@@ -8,9 +8,9 @@ import {
     FormWrapper,
     FormWrappedProps,
     Input,
-} from '../index';
-import { Row, Col } from 'react-bootstrap';
-import './confirm.scss';
+} from "../index";
+import { Row, Col } from "react-bootstrap";
+import "./confirm.scss";
 
 export var showConfirm: Function;
 
@@ -23,9 +23,9 @@ function PopConfirm(props: FormWrappedProps) {
             const { name } = options.input;
             // initialize form input
             props.setFormState({
-                input: { [name]: '' },
+                input: { [name]: "" },
                 valid: { [name]: true },
-                message: { [name]: '' },
+                message: { [name]: "" },
             });
         }
     };
@@ -34,14 +34,18 @@ function PopConfirm(props: FormWrappedProps) {
         if (options.title) {
             setTimeout(() => {
                 // DOM method is used because modal component was not receiving ref
-                const modal: HTMLDivElement | null = document.querySelector('.confirm');
+                const modal: HTMLDivElement | null = document.querySelector(
+                    ".confirm"
+                );
                 if (modal) {
                     const style = window.getComputedStyle(modal);
-                    const position = style.getPropertyValue('position');
-                    console.log('position', position);
-                    if (position === 'fixed') {
+                    const position = style.getPropertyValue("position");
+                    console.log("position", position);
+                    if (position === "fixed") {
                         // modal border radius is 8px
-                        modal.style.top = `calc(100% - ${modal.clientHeight - 8}px)`;
+                        modal.style.top = `calc(100% - ${
+                            modal.clientHeight - 8
+                        }px)`;
                     }
                 }
             }, 100);
@@ -79,14 +83,19 @@ function PopConfirm(props: FormWrappedProps) {
                             );
                         })()}
                     <div className="d-flex w-100 footer">
-                        {!options.hideCancel &&
-                            <Button variant={ButtonVariants.TERTIARY} onClick={() => setOptions({})}>
+                        {!options.hideCancel && (
+                            <Button
+                                variant={ButtonVariants.TERTIARY}
+                                onClick={() => setOptions({})}
+                            >
                                 Cancel
                             </Button>
-                        }
+                        )}
                         <Button
                             onClick={handleConfirm}
-                            disabled={options.input ? !props.isFormValid() : false}
+                            disabled={
+                                options.input ? !props.isFormValid() : false
+                            }
                         >
                             {options.confirmText}
                         </Button>

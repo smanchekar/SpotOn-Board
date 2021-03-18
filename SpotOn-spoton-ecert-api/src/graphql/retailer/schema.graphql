@@ -1,8 +1,14 @@
-input RetailerType {
+input RetailerInput {
     retailerId: Int
     retailerName: String
     groupId: String
     merchantId: String
+    MaxBagTotal: String
+    MaxGcValue: String
+    MaxItems: String
+    MinGcValue: String
+    RemaindeSchedule: String
+    categoryId: [Int]
 }
 
 type Retailer {
@@ -17,6 +23,8 @@ type Retailer {
     tokenKey: String
     customStyle: String
     bannerName: String
+    status: Int
+    message: String
 }
 
 type AllRetailers {
@@ -94,5 +102,5 @@ type Query {
 }
 
 type Mutation {
-    createRetailer(input: RetailerType!): Retailer
+    addEditRetailer(input: RetailerInput!, retailerId: Int): Retailer
 }

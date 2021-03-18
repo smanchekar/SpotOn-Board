@@ -6,10 +6,15 @@ import Sequelize from "sequelize";
 import axios from "axios";
 import { Op } from "sequelize";
 import moment from "moment";
+import { identity } from "lodash";
+import { FragmentsOnCompositeTypesRule } from "graphql";
+import Category from "./category";
 let mainmodel = new MainModel();
 let spotonschemamodels = mainmodel.models;
 const sequelize = mainmodel.Conn;
 let retailers = spotonschemamodels.retailer;
+let retailerprofile = spotonschemamodels.retailerprofile;
+
 class Retailers {
     constructor() {
         //GET ALL RETAILERS
@@ -127,24 +132,121 @@ class Retailers {
             }
             // });
         };
+        const maxRetailerId = (modelname, colname) => {
+            return modelname.findOne({
+                attributes: [
+                    [sequelize.fn("MAX", sequelize.col(colname)), colname],
+                ],
+            });
+        };
 
-        this.createRetailer = async (args) => {
+        this.createRetailer = async (args, retailerId) => {
             try {
-                console.log("in busineess", args);
-                // const result = await sequelize.transaction(async (t) => {
-                //     // const user = await sagar.create(
-                //     //     {
-                //     //         firstName: "Abraham",
-                //     //         lastName: "Lincoln",
-                //     //     },
-                //     //     { transaction: t }
-                //     // );
-                //     console.log("in busineess");
-                //     //  return user;
-                // });
+                console.log(retailerId);
+
+                //if retailerId present then update query
+                if (retailerId !== undefined) {
+                    console.log("update retailer", retailerId);
+                    await this.updateRetailer(retailerId, args);
+                    let status = config.successResponse.status;
+                    let message = config.successResponse.message;
+                    return { status, message };
+                } else {
+                    //find max retailerid
+                    let {
+                        retailerName,
+                        groupId,
+                        merchantId,
+                        categoryId,
+                        ...other
+                    } = args;
+
+                    let retailerObj = await maxRetailerId(
+                        retailers,
+                        "retailerid"
+                    );
+
+                    console.log("id", retailerObj.retailerid);
+
+                    let retailer = {
+                        retailerid: retailerObj.retailerid + 1,
+                        retailername: retailerName,
+                        groupid: groupId,
+                        merchantid: merchantId,
+                        retaileractive: "Y",
+                    };
+                    console.log("in business", retailer);
+
+                    await sequelize.transaction(async (t) => {
+                        let options = { transaction: t };
+                        await retailers.create(retailer, options);
+
+                        await this.updateRetailerProfile(
+                            retailerObj.retailerid + 1,
+                            other,
+                            options
+                        );
+
+                        await Category.addRetailerCategory(
+                            retailerObj.retailerid + 1,
+                            categoryId,
+                            options
+                        );
+                    });
+                    let status = config.successResponse.status;
+                    let message = config.successResponse.message;
+                    return { status, message };
+                }
             } catch (error) {
                 console.log(error);
+                return config.failedResponse;
             }
+        };
+
+        this.updateRetailer = async (retailerId, args) => {
+            console.log("retailerId", retailerId);
+            console.log("args", args);
+
+            let { retailerName, groupId, merchantId, ...other } = args;
+
+            const result = await sequelize.transaction(async (t) => {
+                let options = { transaction: t };
+                await retailers.update(
+                    {
+                        retailername: retailerName,
+                        groupid: groupId,
+                        merchantid: merchantId,
+                        retaileractive: "Y",
+                    },
+                    {
+                        where: {
+                            retailerid: retailerId,
+                        },
+                    }
+                );
+                await this.updateRetailerProfile(retailerId, other, options);
+            });
+        };
+
+        this.updateRetailerProfile = async (retailerId, other, options) => {
+            let retailerprofilename = Object.keys(other);
+            let retailerprofilevalue = Object.values(other);
+            // console.log("Key", retailerprofilename);
+            //console.log("Value", retailerprofilevalue);
+
+            let retailerProfile = [];
+            for (let i = 0; i < retailerprofilename.length; i++) {
+                retailerProfile[i] = {
+                    retailerid: retailerId,
+                    retailerprofilename: retailerprofilename[i],
+                    retailerprofilevalue: retailerprofilevalue[i],
+                };
+            }
+            console.log(retailerProfile);
+            await retailerprofile.bulkCreate(retailerProfile, {
+                updateOnDuplicate: ["retailerid"],
+                transaction: options.transaction,
+            });
         };
 
         this.getRetailerByMerchantId = (groupid, merchantid) => {
@@ -207,135 +309,6 @@ class Retailers {
                     }
                 });
         }),
-            /**
-             * Function to retrieve retailer and it's profile information.
-             * @param {*} args      arguments passed in query.
-             */
-            // this.getRetailerProfile = (args, context) => {
-            //     console.log("getRetailer", args);
-            //     return sequelize
-            //         .transaction((t) => {
-            //             return this.getRetailerByMerchantId(
-            //                 args.groupid,
-            //                 args.merchantid
-            //             )
-            //                 .then((data) => {
-            //                     return data
-            //                         ? data
-            //                         : this.getRetailerByMerchantId(
-            //                               args.groupid,
-            //                               null
-            //                           );
-            //                 })
-            //                 .then((data) => {
-            //                     if (!data) {
-            //                         // if retailer not found w.r.t group then default to defaultRetailerID
-            //                         return this.getDefaultRetailer().then(
-            //                             (data) => {
-            //                                 data.groupid = args.groupid;
-            //                                 return data;
-            //                             }
-            //                         );
-            //                     }
-            //                     return data;
-            //                 })
-            //                 .then((data) => {
-            //                     return this.getMerchantData(args.merchantid).then(
-            //                         (merchantData) => {
-            //                             data.retailerName =
-            //                                 merchantData.retailerName;
-            //                             data.retailerLogo =
-            //                                 merchantData.retailerLogo;
-            //                             return data;
-            //                         }
-            //                     );
-            //                 })
-            //                 .then((profile) => {
-            //                     if (profile) {
-            //                         let options = { transaction: t };
-            //                         let merchantData = {
-            //                             groupId: args.groupid,
-            //                             merchantId: args.merchantid,
-            //                             retailerName: profile.retailerName,
-            //                             retailerLogo: profile.retailerLogo,
-            //                         };
-
-            //                         let trans = {
-            //                             utdate: util.getTimeStamp(),
-            //                             utipaddr: "",
-            //                             retailerid: profile.retailerid,
-            //                             utrefererurl: context.referer,
-            //                             merchantid: JSON.stringify(merchantData),
-            //                         };
-
-            //                         return spotonschemamodels.usertrans
-            //                             .create(trans, options)
-            //                             .then((usertrans) => {
-            //                                 profile.transid = usertrans.usertransid;
-            //                                 let data = this.parseMerchantJson(
-            //                                     usertrans
-            //                                 );
-            //                                 profile.merchantId = data.merchantId;
-            //                                 return profile;
-            //                             });
-            //                     }
-            //                     return profile;
-            //                 })
-            //                 .then((profile) => {
-            //                     if (profile) {
-            //                         return this.getTokenKey(args).then((key) => {
-            //                             console.log("token----------", key);
-            //                             profile.tokenKey = key;
-            //                             return profile;
-            //                         });
-            //                     }
-            //                     return profile;
-            //                 })
-            //                 .then((profile) => {
-            //                     return this.checkForCustomStyle(
-            //                         args.groupid,
-            //                         args.merchantid
-            //                     )
-            //                         .then((res) => {
-            //                             return res
-            //                                 ? res
-            //                                 : this.checkForCustomStyle(
-            //                                       args.groupid,
-            //                                       null
-            //                                   );
-            //                         })
-            //                         .then((res) => {
-            //                             return res
-            //                                 ? res
-            //                                 : this.checkForCustomStyle(
-            //                                       config.defaultGroupId,
-            //                                       null
-            //                                   );
-            //                         })
-            //                         .then((res) => {
-            //                             if (res) {
-            //                                 profile.customstyle = res;
-            //                             }
-            //                             return profile;
-            //                         });
-            //                 })
-            //                 .then((profile) => {
-            //                     return this.getPromoConfig({
-            //                         groupid: args.groupid,
-            //                         merchantid: args.merchantid,
-            //                         joinDtlTable: false,
-            //                     }).then((res) => {
-            //                         profile.promoconfig = res;
-            //                         return profile;
-            //                     });
-            //                 });
-            //         })
-            //         .catch((err) => {
-            //             console.log("getRetailerProfile-----", err);
-            //             return config.failedResponse;
-            //         });
-            // };
-
             (this.checkForCustomStyle = (groupid, merchantid) => {
                 return spotonschemamodels.customstyle.findOne({
                     where: {
@@ -505,11 +478,11 @@ class Retailers {
             //console.log('getRetailer', retailerid);
             return spotonschemamodels.retailer
                 .findOne({
-                    attributes: [
-                        "retailerid",
-                        "retailername",
-                        "retaileractive",
-                    ],
+                    // attributes: [
+                    //     "retailerid",
+                    //     "retailername",
+                    //     "retaileractive",
+                    // ],
                     include: [
                         {
                             model: spotonschemamodels.retailerprofile,

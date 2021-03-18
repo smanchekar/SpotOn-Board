@@ -14,6 +14,7 @@ export const resolver = {
             return util.verifyUser(context.token).then((data) => {
                 let decoded = data;
                 console.log("decoded", decoded);
+
                 return Retailers.getAllRetailers(args.input);
             });
         },
@@ -39,9 +40,14 @@ export const resolver = {
     },
 
     Mutation: {
-        createRetailer(root, args, context) {
-            console.log("in createRetailer", args);
-            return Retailers.createRetailer(args);
+        addEditRetailer(root, args, context) {
+            console.log("in args of create retailers", args);
+            // return util.verifyUser(context.token).then((data) => {
+            //  let decoded = data;
+            // console.log("decoded", decoded);
+            // console.log("in createRetailer", args);
+            return Retailers.createRetailer(args.input, args.retailerId);
+            //});
         },
     },
 

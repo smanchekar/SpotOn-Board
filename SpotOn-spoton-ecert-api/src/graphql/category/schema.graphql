@@ -1,0 +1,30 @@
+type Category {
+    catid: Int
+    catdesc: String
+}
+
+input CategoryInput {
+    catid: Int
+    catdesc: String
+}
+type AllCategory {
+    categories: [Category]
+    total: Int
+    status: Int
+    message: String
+    catcardmap: [CatCardMap]
+    retailercategorymap: [RetailerCategoryMap]
+}
+
+type CatCardMap {
+    catid: Int
+    cardid: Int
+}
+
+type RetailerCategoryMap {
+    catid: Int
+    retailerid: Int
+}
+type Query {
+    allCategories: AllCategory
+}

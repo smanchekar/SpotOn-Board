@@ -8,6 +8,7 @@ import { showLoader } from "./loader/loader";
 import { showConfirm } from "./confirm/confirm";
 import Datetime from "react-datetime";
 import { Drawer, Icon as AntIcon, Dropdown, Menu, Table, Popover } from "antd";
+
 import {
     Input,
     Button,
@@ -50,6 +51,15 @@ export enum InputNames {
     GROUPID = "groupId",
     RETAILERNAME = "retailerName",
     RETAILERACTIVE = "retailerActive",
+    MAXBAGTOTAL = "MaxBagTotal",
+    MAXITEMS = "MaxItems",
+    REMAINDERSCHEDULE = "RemaindeSchedule",
+    MAXGCVALUE = "MaxGcValue",
+    MINGCVALUE = "MinGcValue",
+    EMAILFROMIDRECIPIENT = "EmailFromIdForRecipient",
+    EMAILFROMIDSENDER = "EmailFromIdForSender",
+    ORDERCONFTEMPLATEKAY = "orderConfTemplateKay",
+    EMAILFROMNAMEFORSENDER = "EmailFromNameForSender",
     RETAILERPROFILENAME = "retailerprofilename",
     RETAILERPROFILEVALUE = "retailerprofilevalue",
 }

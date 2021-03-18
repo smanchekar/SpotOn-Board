@@ -1,0 +1,44 @@
+.dynamic-delete-button {
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    color: #999;
+    transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+    color: #777;
+}
+.dynamic-delete-button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+.cardForm {
+    width: 100%;
+    // padding: 0 25%;
+    // height: calc(100vh - 290px);
+    overflow: auto;
+    text-align: center;
+    margin: auto;
+    p {
+        font-size: 15px;
+    }
+    .ant-col-sm-16 {
+        width: 100%;
+    }
+    .ant-input {
+        width: 300px;
+    }
+}
+
+.upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-right: 8px;
+}
+.upload-list-inline .ant-upload-animate-enter {
+    animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+    animation-name: uploadAnimateInlineOut;
+}

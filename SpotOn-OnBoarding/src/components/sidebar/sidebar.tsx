@@ -1,7 +1,7 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
-import { Text, TextTypes, Button, ButtonVariants } from '../index';
-import './sidebar.scss';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import { Text, TextTypes, Button, ButtonVariants } from "../index";
+import "./sidebar.scss";
 
 interface SidebarProps {
     links: Array<any>;
@@ -11,9 +11,18 @@ interface SidebarProps {
     visible?: boolean;
 }
 
-const Sidebar = ({ links, onSelectLink, footerLink, currentPath, visible }: SidebarProps) => {
+const Sidebar = ({
+    links,
+    onSelectLink,
+    footerLink,
+    currentPath,
+    visible,
+}: SidebarProps) => {
     return (
-        <Col md={2} className={'sidebar h-100 ' + (!visible ? 'd-none d-md-block' : '')}>
+        <Col
+            md={2}
+            className={"sidebar h-100 " + (!visible ? "d-none d-md-block" : "")}
+        >
             <Row className="side-header d-md-none d-sm-flex">
                 <div className="logo">
                     <div />
@@ -29,7 +38,10 @@ const Sidebar = ({ links, onSelectLink, footerLink, currentPath, visible }: Side
                             <Col
                                 className="current"
                                 style={{
-                                    backgroundColor: currentPath.indexOf(path) > -1 ? 'white' : '',
+                                    backgroundColor:
+                                        currentPath.indexOf(path) > -1
+                                            ? "white"
+                                            : "",
                                 }}
                             />
                             <Col className="align-self-center">

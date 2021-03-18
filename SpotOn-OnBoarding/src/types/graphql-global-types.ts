@@ -17,6 +17,19 @@ interface Response {
     message?: string;
 }
 
+export interface RetailerInput {
+    // retailerId: string | null;
+    MaxBagTotal: string | null;
+    MaxGcValue: string | null;
+    MaxItems: string | null;
+    MinGcValue: string | null;
+    ReminderSchedule: string | null;
+    groupId: string | null;
+    merchantId: string | null;
+    retailerName: string | null;
+    categoryId: number[] | null;
+}
+
 export interface UserInput extends Response {
     uid?: string | null;
     firstname?: string | null;
