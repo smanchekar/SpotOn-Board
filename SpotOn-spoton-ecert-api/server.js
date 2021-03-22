@@ -3,7 +3,6 @@ import path from "path";
 import { ApolloServer } from "apollo-server-express";
 import glue from "schemaglue";
 import config from "./config/config";
-import assets from "./src/business/assets";
 import cors from "cors";
 const { schema, resolver } = glue("src/graphql");
 

@@ -1,14 +1,23 @@
-type Category {
+type Cards {
+    carddesc: [String]
+    cardimagename: [String]
+    categoryname: [String]
+    status: Int
+    message: String
+}
+type AllCategories {
     catid: Int
     catdesc: String
 }
 
 input CategoryInput {
-    catid: Int
-    catdesc: String
+    carddesc: [String]
+    cardimagename: [String]
+    categoryname: [String]
 }
+
 type AllCategory {
-    categories: [Category]
+    categories: [AllCategories]
     total: Int
     status: Int
     message: String
@@ -27,4 +36,8 @@ type RetailerCategoryMap {
 }
 type Query {
     allCategories: AllCategory
+}
+
+type Mutation {
+    addCategoryAndCards(input: CategoryInput!): Cards
 }

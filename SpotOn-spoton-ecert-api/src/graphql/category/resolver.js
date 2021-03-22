@@ -14,17 +14,18 @@ export const resolver = {
         },
     },
 
-    // Mutation: {
-    //     addCategory(root, args, context) {
-    //         console.log("in args of create category", args);
-    //         // return util.verifyUser(context.token).then((data) => {
-    //         //  let decoded = data;
-    //         // console.log("decoded", decoded);
-    //         // console.log("in createRetailer", args);
-    //         return Category.createCategory(args.input, args.retailerId);
-    //         //  });
-    //     },
-    // },
+    Mutation: {
+        addCategoryAndCards(root, args, context) {
+            console.log("in args of create category", args);
+
+            // return util.verifyUser(context.token).then((data) => {
+            //  let decoded = data;
+            // console.log("decoded", decoded);
+            // console.log("in createRetailer", args);
+            return Category.createCategory(args.input);
+            //  });
+        },
+    },
 
     // Retailer: {
     //     retailerId: (row) => row.retailerid,

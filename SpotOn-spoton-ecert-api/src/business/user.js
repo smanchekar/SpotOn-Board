@@ -1,10 +1,10 @@
 import MainModel from "../../data/spoton/models";
 import config from "../../config/config";
-import util from "./util";
-import RestaurantApi from "./restaurantapi";
-import Sequelize from "sequelize";
-import axios from "axios";
-import { Op } from "sequelize";
+// import util from "./util";
+// import RestaurantApi from "./restaurantapi";
+// import Sequelize from "sequelize";
+// import axios from "axios";
+// import { Op } from "sequelize";
 import bcrypt from "bcryptjs";
 const jwt = require("jsonwebtoken");
 require("dotenv").config();

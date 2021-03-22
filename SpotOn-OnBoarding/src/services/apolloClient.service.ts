@@ -7,6 +7,7 @@ import {
     UserInput,
     Filter,
     RetailerInput,
+    CategoryInput,
 } from "../types/graphql-global-types";
 const URL = constants.BASE_URL + "/graphql";
 
@@ -265,10 +266,37 @@ export default class ApolloClientService {
                 variables: {},
                 fetchPolicy: "no-cache",
             });
-            console.log("in getAll Categories", data.data);
+            console.log("in getAll Categories");
             return data.data ? data.data.allCategories : undefined;
         } catch (err) {
-            console.log(err);
+            return this.handlException(err);
+        }
+    }
+    async addCategoryAndCards(input: CategoryInput) {
+        console.log("input", input);
+        const { ...common } = input;
+        try {
+            console.log("addCategoryAndCards...");
+            let data = await this._instance.mutate({
+                mutation: gql`
+                    mutation addCategoryAndCards($input: CategoryInput!) {
+                        addCategoryAndCards(input: $input) {
+                            status
+                            message
+                        }
+                    }
+                `,
+                variables: {
+                    input: {
+                        ...common,
+                    },
+                },
+                fetchPolicy: "no-cache",
+            });
+            console.log("addCategoryAndCards...", data);
+            return data.data ? data.data.addCategoryAndCards : { status: 1 };
+        } catch (ex) {
+            return this.handlException(ex);
         }
     }
 
@@ -304,10 +332,9 @@ export default class ApolloClientService {
                 },
                 fetchPolicy: "no-cache",
             });
-            console.log("addEditRetailer...", data.data);
+            console.log("addEditRetailer...");
             return data.data ? data.data.addEditRetailer : { status: 1 };
         } catch (ex) {
-            console.log("errorrro", ex);
             return this.handlException(ex);
         }
     }

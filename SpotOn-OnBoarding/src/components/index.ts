@@ -90,6 +90,11 @@ export interface InputProps {
     clearable?: boolean;
 }
 
+export interface CategoryProps {
+    catdesc?: string;
+    cards?: any;
+    cardimage?: any;
+}
 export {
     Datetime,
     // custom components

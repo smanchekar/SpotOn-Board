@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { Form, Input, InputNumber, Icon } from "antd";
 import { Button } from "spoton-lib";
 import { constants } from "../../constants";
-import "./category-form.scss";
 import CardFormData from "../card-form/card-form";
-const CategoryForm = (props) => {
-    const [NewCards, setNewCards] = useState(false);
+import Service from "../../services/apolloClient.service";
+import "./category-form.scss";
+import { showLoader, showToast, ToastVariants } from "../../components/index";
 
+const CategoryForm = (props) => {
+    console.log("in category form", props);
+    const [NewCards, setNewCards] = useState(false);
+    var [Category, setCategory] = useState({
+        categoryname: "",
+        carddesc: [""],
+        cardimagename: [""],
+    });
     const { getFieldDecorator } = props.form;
 
     const formItemLayout = {
@@ -14,14 +22,49 @@ const CategoryForm = (props) => {
         wrapperCol: { xs: { span: 24 }, sm: { span: 16 } },
     };
 
-    const handleSubmit = (e) => {
+    const cardDetails = props.form.getFieldValue("cardimage");
+    const cardname = props.form.getFieldValue("names");
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        props.form.validateFields((err, values) => {
+        props.form.validateFields(async (err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                Category.categoryname = values.CategoryName;
 
-                //props.handleSubmit(values);
+                Category.carddesc = Object.values(values.names);
+
+                Category.cardimagename = values.cardimage.fileList.map(
+                    (item) => item.name
+                );
+                console.log(Category);
+
+                function handleChange() {
+                    // Here, we invoke the callback with the new value
+                    props.onChange(false);
+                }
+                const res = await showLoader(
+                    new Service().addCategoryAndCards(Category)
+                );
+
+                if (!res || res.status) {
+                    showToast({
+                        title: "Failed!",
+                        content: res?.message,
+                        variant: ToastVariants.DANGER,
+                    });
+                    return;
+                }
+                if (res.status === 0) {
+                    showToast({
+                        title: " Added Category",
+                        content: "New Category has been added",
+
+                        variant: ToastVariants.SUCCESS,
+                    });
+                    // props.history.goBack();
+                }
             }
         });
     };
@@ -73,7 +116,6 @@ const CategoryForm = (props) => {
                     //     width: "45%",
                     //}}
                     >
-                        {" "}
                         {/* {NewCards && <CardFormData {...props} />} */}
                         <CardFormData {...props} />
                         {/* <Button onClick={clickBtn}>Add New Cards</Button> */}
@@ -83,12 +125,12 @@ const CategoryForm = (props) => {
                             type="submit"
                             className="submitBtn"
                         >
-                            Submit{" "}
+                            Submit
                             {/* {retailer.groupId ? "Save" : "Save and Edit Cards"} */}
                         </Button>
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        {/* <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> */}
                         {/* <Button onClick={props.handleCancel}>Cancel</Button> */}
-                        <div>&nbsp;</div>
+                        {/* <div>&nbsp;</div> */}
                     </div>
                 </Form>
             </div>

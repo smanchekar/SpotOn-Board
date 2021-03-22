@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, Icon, Button, Upload } from "antd";
 import "./card-form.scss";
 import { Text, TextTypes, colors } from "../../components/index";
+import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 
 const CardForm = (props) => {
     const handleSubmit = (e) => {
@@ -48,58 +49,16 @@ const CardForm = (props) => {
     // console.log(keys);
     const cardDetails = props.form.getFieldValue("cardimage");
 
-    // const formItems = keys.map((k, index) => (
-    //     <div className="cardForm">
-    //         <Form.Item
-    //             {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-    //             label={index === 0 ? "Card Name" : ""}
-    //             required={false}
-    //             key={k}
-    //         >
-    //             {getFieldDecorator(`cardimage`, {
-    //                 validateTrigger: ["onChange", "onBlur"],
-    //                 rules: [
-    //                     {
-    //                         required: true,
-    //                         whitespace: true,
-    //                         message:
-    //                             "Please input Card name or delete this field.",
-    //                     },
-    //                 ],
-    //             })(
-    //                 <Upload {...props}>
-    //                     <Button>
-    //                         <Icon type="upload" /> Upload
-    //                     </Button>
-    //                 </Upload>
-    //             )}
-    //             {/* ( cardDetails == undefined) ? {""} :{ */}
-    //             {getFieldDecorator(`names[${k}]`, {
-    //                 validateTrigger: ["onChange", "onBlur"],
-    //                 rules: [
-    //                     {
-    //                         required: true,
-    //                         whitespace: true,
-    //                         message:
-    //                             "Please input Card name or delete this field.",
-    //                     },
-    //                 ],
-    //             })(<Input placeholder="Card Name" />)}
-    //         </Form.Item>
-    //     </div>
-    // ));
-
     let fileList = [];
     if (cardDetails !== undefined) {
         fileList = cardDetails.fileList;
-        console.log(fileList);
+        //   console.log(fileList);
     }
 
     return (
         <div className="d-none d-md-flex">
             <div className="cardForm">
                 <Form onSubmit={handleSubmit}>
-                    {/* {formItems} */}
                     <Form.Item>
                         {getFieldDecorator(`cardimage`, {
                             validateTrigger: ["onChange", "onBlur"],
@@ -123,16 +82,16 @@ const CardForm = (props) => {
                                 </Button>
                             </Upload>
                         )}
-
-                        {console.log(
-                            "Card Form Props",
-                            props.form.getFieldValue("cardimage")
-                        )}
                     </Form.Item>
 
                     {fileList.map((item) => (
                         <Form.Item>
-                            <li key={item.uid}>{item.name}</li>
+                            {" "}
+                            <span style={{ marginLeft: "10px" }} key={item.uid}>
+                                {item.name}
+                            </span>
+                            <span>&nbsp;</span>
+                            <span>&nbsp;</span>
                             {getFieldDecorator(`names[${item.uid}]`, {
                                 validateTrigger: ["onChange", "onBlur"],
                                 rules: [
@@ -142,7 +101,15 @@ const CardForm = (props) => {
                                         message: "Please input Card name.",
                                     },
                                 ],
-                            })(<Input placeholder="Card Name" />)}
+                            })(
+                                <Input
+                                    style={{
+                                        width: "45%",
+                                        align: "right",
+                                    }}
+                                    placeholder="Card Name"
+                                />
+                            )}
                         </Form.Item>
                     ))}
                 </Form>

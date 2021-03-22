@@ -1,7 +1,7 @@
 import MainModel from "../../data/spoton/models";
 import config from "../../config/config";
 import util from "./util";
-import RestaurantApi from "./restaurantapi";
+
 import Sequelize from "sequelize";
 import axios from "axios";
 import { Op } from "sequelize";
@@ -19,51 +19,44 @@ class Retailers {
     constructor() {
         //GET ALL RETAILERS
         this.getAllRetailers = async (input, context) => {
-            if (input.searchText === "") {
-                const limit = input.pageSize;
-                const offset = (input.pageNo - 1) * input.pageSize;
-                console.log("limit", limit);
-                console.log("offset", offset);
+            try {
+                if (input.searchText === "") {
+                    const limit = input.pageSize;
+                    const offset = (input.pageNo - 1) * input.pageSize;
+                    console.log("limit", limit);
+                    console.log("offset", offset);
 
-                let retailers = await spotonschemamodels.retailer.findAll({
-                    limit: limit,
-                    offset: offset,
-                    include: [
-                        {
-                            model: spotonschemamodels.retailerprofile,
-                        },
-                    ],
-                    order: [["retailerid", "ASC"]],
-                });
-                if (retailers) {
-                    let status = config.successResponse.status;
-                    let message = config.successResponse.message;
-                    let total = await spotonschemamodels.retailer.count();
-                    console.log(status, message);
-                    return { retailers, total, status, message };
+                    let retailers = await spotonschemamodels.retailer.findAll({
+                        limit: limit,
+                        offset: offset,
+                        include: [
+                            {
+                                model: spotonschemamodels.retailerprofile,
+                            },
+                        ],
+                        order: [["retailerid", "ASC"]],
+                    });
+                    if (retailers) {
+                        let status = config.successResponse.status;
+                        let message = config.successResponse.message;
+                        let total = await spotonschemamodels.retailer.count();
+                        console.log(status, message);
+                        return { retailers, total, status, message };
+                    } else {
+                        let status = config.failedResponse.status;
+                        let message = config.failedResponse.message;
+                        return { retailers, total, status, message };
+                    }
                 } else {
-                    let status = config.failedResponse.status;
-                    let message = config.failedResponse.message;
-                    return { retailers, total, status, message };
+                    console.log("in search retaiers");
+                    return this.searchRetailers(input).then((data) => {
+                        console.log("in search return", data);
+                        return data;
+                    });
                 }
-
-                // .then((data) => {
-                //     const count = spotonschemamodels.retailer
-                //         .count()
-                //         .then((res) => console.log(res));
-                //     total: count;
-                //     console.log(data);
-                //     return data;
-                // })
-                // .catch((err) => {
-                //     console.log("", err);
-                // });
-            } else {
-                console.log("in search retaiers");
-                return this.searchRetailers(input).then((data) => {
-                    console.log("in search return", data);
-                    return data;
-                });
+            } catch (error) {
+                console.log(error);
+                return config.failedResponse;
             }
         };
 
@@ -132,6 +125,7 @@ class Retailers {
             }
             // });
         };
+
         const maxRetailerId = (modelname, colname) => {
             return modelname.findOne({
                 attributes: [
@@ -142,7 +136,7 @@ class Retailers {
 
         this.createRetailer = async (args, retailerId) => {
             try {
-                console.log(retailerId);
+                console.log(args);
 
                 //if retailerId present then update query
                 if (retailerId !== undefined) {
@@ -186,7 +180,7 @@ class Retailers {
                             other,
                             options
                         );
-
+                        console.log(categoryId);
                         await Category.addRetailerCategory(
                             retailerObj.retailerid + 1,
                             categoryId,
@@ -320,103 +314,6 @@ class Retailers {
             });
 
         /**
-         * Function for fetching row from promoconfig table using any of the following three cases:
-         * * merchantid and groupid (1st preference)
-         * * groupid                (2nd preference)
-         * * default groupid        (3rd preference)
-         * @param {*} object - {groupid, merchantid, joinDtlTable, total}
-         */
-        this.getPromoConfig = async ({
-            groupid,
-            merchantid,
-            joinDtlTable,
-            total,
-        }) => {
-            var res = await this.checkForPromoConfig({
-                groupid,
-                merchantid,
-                joinDtlTable,
-                total,
-            });
-            if (!res)
-                res = await this.checkForPromoConfig({
-                    groupid,
-                    merchantid: null,
-                    joinDtlTable,
-                    total,
-                });
-            if (!res)
-                res = await this.checkForPromoConfig({
-                    groupid: config.defaultGroupId,
-                    merchantid: null,
-                    joinDtlTable,
-                    total,
-                });
-            return res;
-        };
-
-        /**
-         * function for fetching data from database
-         * filters:
-         * * With PromoConfig\active = Y only
-         * * With PronoConfig\GroupId = value and (MerchantId is NULL or MerchantId is value) Order by MerchantId
-         * * With Today Date (UTC/Local ?) between FromDate (if Null Today) & ToDate(if Null Today).
-         * * With  PromoConfigDtl\MinValue  <= Invoice Value
-         * @param {*} object - {groupid, merchantid, joinDtlTable, total}
-         */
-        this.checkForPromoConfig = ({
-            groupid,
-            merchantid,
-            joinDtlTable,
-            total,
-        }) => {
-            var obj = {
-                where: {
-                    groupid,
-                    merchantid,
-                    active: true,
-                    fromdate: {
-                        [Op.lte]: moment().utc().format("YYYY-MM-DD HH:mm"),
-                    },
-                    todate: {
-                        [Op.gte]: moment().utc().format("YYYY-MM-DD HH:mm"),
-                    },
-                },
-            };
-            if (joinDtlTable) {
-                obj.include = [
-                    {
-                        model: spotonschemamodels.promoconfigdtl,
-                        where: { minvalue: { [Op.lte]: total } },
-                    },
-                    {
-                        model: spotonschemamodels.category,
-                        include: [{ model: spotonschemamodels.card }],
-                    },
-                ];
-                obj.order = [
-                    [spotonschemamodels.promoconfigdtl, "minvalue", "DESC"],
-                ];
-            }
-            return spotonschemamodels.promoconfig.findOne(obj);
-        };
-
-        this.requestStyle = (path) => {
-            return axios.get(path).then((res) => path);
-        };
-
-        /**
-         * Function to retrieve valid tokenization key from Spoton VTS.
-         * @param {*} args      arguments passed in query.
-         */
-        this.getTokenKey = async (args) => {
-            let api = new RestaurantApi();
-            api.setMerchant(args.merchantid);
-            let response = await api.getPaymentTokenKey();
-            return response.data.nmi_tokenization_key;
-        };
-
-        /**
          * Function to retrieve valid tokenization key from Spoton VTS.
          * @param {*} args      arguments passed in query.
          */
@@ -499,167 +396,6 @@ class Retailers {
                         return this.getDefaultRetailer();
                     }
                     return retailer;
-                });
-        };
-
-        /**
-         * Function to retrieve retailer card designs.
-         * @param {*} args  arguments passed in query.
-         */
-        this.getCardDesigns = (args) => {
-            return spotonschemamodels.retailer
-                .findOne({
-                    attributes: ["retailername", "retaileractive"],
-                    include: [
-                        {
-                            model: spotonschemamodels.category,
-                            as: "retailercategory",
-                            attributes: ["catid"],
-                        },
-                    ],
-                    where: { retailerid: args.retailerid },
-                })
-                .then((data) => {
-                    let catIds = data.retailercategory.map((cat) => {
-                        return cat.catid;
-                    });
-                    return spotonschemamodels.category
-                        .findAll({
-                            attributes: ["catid", "catdesc", "catdisplayorder"],
-                            include: [
-                                {
-                                    model: spotonschemamodels.card,
-                                    attributes: [
-                                        "cardid",
-                                        "carddesc",
-                                        "cardimagename",
-                                        "cardtemplate",
-                                    ],
-                                },
-                            ],
-                            where: {
-                                catid: { [Sequelize.Op.in]: catIds },
-                            },
-                            order: Sequelize.literal(
-                                '"cards->catcardmap".carddisplayorder ASC'
-                            ),
-                        })
-                        .then((designs) => {
-                            designs = designs.map((obj) => {
-                                obj = obj.toJSON();
-                                if (obj.cards) {
-                                    obj.cards = obj.cards.map((card) => {
-                                        card.retailerid = args.retailerid;
-                                        return card;
-                                    });
-                                }
-                                return obj;
-                            });
-                            return designs;
-                        });
-                })
-                .catch((err) => {
-                    console.log("getCardDesigns-----", err);
-                    return config.failedResponse;
-                });
-        };
-
-        /**
-         * Function to retrieve retailer card design text and styling.
-         * @param {*} args  arguments passed in query.
-         */
-        this.getCardTextDetails = (cardid, retailerid) => {
-            return spotonschemamodels.cardtextdetail
-                .findAll({
-                    attributes: ["ctdtext", "ctdstyle"],
-                    where: {
-                        cardid,
-                        retailerid: { [Sequelize.Op.in]: [retailerid, -1] },
-                    },
-                })
-                .then((data) => {
-                    if (data && data.length > 0) {
-                        return { ...config.successResponse, data };
-                    }
-                    return config.failedResponse;
-                })
-                .catch((err) => {
-                    console.log("cardtextdetail error-----", err);
-                    return config.failedResponse;
-                });
-        };
-
-        this.parseMerchantJson = (transObj) => {
-            console.log("After parsing1...", transObj.merchantid);
-            if (transObj && transObj.merchantid) {
-                let data = {};
-                try {
-                    data = JSON.parse(transObj.merchantid);
-                } catch (err) {
-                    console.log("parseMerchantJson err", err);
-                }
-                transObj = transObj.toJSON();
-                transObj.merchantId = data.merchantId
-                    ? data.merchantId
-                    : transObj.merchantid;
-                transObj.groupId = data.groupId ? data.groupId : "";
-                transObj.retailerName = data.retailerName
-                    ? data.retailerName
-                    : "";
-                transObj.retailerLogo = data.retailerLogo
-                    ? data.retailerLogo
-                    : "";
-                return transObj;
-            }
-            return transObj;
-        };
-
-        this.getStyle = (row) => {
-            return this.getCardTextDetails(row.cardid, row.retailerid)
-                .then((data) => {
-                    let styleArr = [];
-                    if (data.data && data.status) {
-                        data.data.forEach((cardtextdetail) => {
-                            if (cardtextdetail) {
-                                let style = JSON.parse(cardtextdetail.ctdstyle);
-                                style.text = cardtextdetail.ctdtext;
-                                styleArr.push(style);
-                            }
-                        });
-                    }
-                    return styleArr;
-                })
-                .then((styles) => {
-                    if (!styles || (styles && styles.length === 0)) {
-                        let styleArr = [];
-                        let template = row.cardtemplate
-                            ? JSON.parse(row.cardtemplate)
-                            : row.cardtemplate;
-                        if (template) {
-                            if (template.style && template.style.amount) {
-                                let style = template.style.amount;
-                                style.type = "amount";
-                                style.text = "Gift Card Amount";
-                                styleArr.push(style);
-                            }
-                            if (template.style && template.style.message) {
-                                let style = template.style.message;
-                                style.type = "message";
-                                style.text =
-                                    '"Here goes your personal message"';
-                                styleArr.push(style);
-                            }
-                            if (template.style) {
-                                styleArr.push(template.style);
-                            }
-                        }
-                        return JSON.stringify(styleArr);
-                    }
-                    return JSON.stringify(styles);
-                })
-                .catch((err) => {
-                    console.log("style fetch error", err);
-                    throw config.failedResponse;
                 });
         };
     }

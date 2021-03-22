@@ -27,7 +27,7 @@
         width: 100%;
     }
     .ant-input {
-        width: 300px;
+        width: 150px;
     }
 }
 
@@ -41,4 +41,8 @@
 }
 .upload-list-inline .ant-upload-animate-leave {
     animation-name: uploadAnimateInlineOut;
+}
+
+.ant-upload-list-item-info {
+    display: none;
 }

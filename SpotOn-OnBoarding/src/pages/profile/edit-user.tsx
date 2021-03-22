@@ -46,6 +46,7 @@ function EditUser(props: EditUserProps) {
     const { location } = props.history;
     const { state } = location;
     const { setFormState } = props;
+
     let profileNames: string[] = [
         "MaxBagTotal",
         "MaxItems",
@@ -169,21 +170,24 @@ function EditUser(props: EditUserProps) {
         setmodal(false);
     };
 
+    function handleChange(newValue: boolean) {
+        setmodal(newValue);
+    }
+
     // const handlcallbackFunction = (childData: any) => {
     //     // this.setState({ message: childData });
     //     console.log(childData);
     // };
-
-    let categoryList =
-        category.length > 0 &&
-        category.map((item: any) => {
+    let categoryList;
+    if (category !== undefined) {
+        categoryList = category.map((item: any) => {
             return (
                 <Option key={item.catid} value={item.catid}>
                     {item.catdesc}
                 </Option>
             );
         });
-
+    }
     return (
         <Container fluid>
             <Col>
@@ -244,7 +248,8 @@ function EditUser(props: EditUserProps) {
                             onOk={handleOk}
                             onCancel={handleCancel}
                         >
-                            <CategoryFormData />
+                            {/* closeModal={handleChange} */}
+                            <CategoryFormData closeModal={handleChange} />
                         </Modal>
                     </div>
 

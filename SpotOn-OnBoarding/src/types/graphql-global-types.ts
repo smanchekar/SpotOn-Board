@@ -30,6 +30,11 @@ export interface RetailerInput {
     categoryId: number[] | null;
 }
 
+export interface CategoryInput {
+    carddesc: string[] | null;
+    cardimagename: string[] | null;
+    categoryname: string | null;
+}
 export interface UserInput extends Response {
     uid?: string | null;
     firstname?: string | null;
