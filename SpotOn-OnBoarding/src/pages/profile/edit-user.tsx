@@ -24,7 +24,7 @@ import Service from "../../services/apolloClient.service";
 import CategoryFormData from "../../components/category-form/category-form";
 import "antd/dist/antd.css";
 import { useState } from "react";
-
+import { Category } from "../../types/graphql-global-types";
 const { Option } = Select;
 interface EditUserProps extends FormWrappedProps {
     history: any;
@@ -39,7 +39,7 @@ interface EditUserProps extends FormWrappedProps {
 // }
 
 function EditUser(props: EditUserProps) {
-    const [category, setCategories] = useState([]);
+    const [categories, setCategories]: any = useState([]);
     const [categoryId, setCategory] = useState([]);
     var [modal, setmodal] = useState(Boolean);
 
@@ -50,14 +50,14 @@ function EditUser(props: EditUserProps) {
     let profileNames: string[] = [
         "MaxBagTotal",
         "MaxItems",
-        "RemaindeSchedule",
+        "ReminderSchedule",
         "MaxGcValue",
         "MinGcValue",
     ];
     let profileValues: string[] = [];
-    console.log("in edit ", props);
+
     const mapProfiles = () => {
-        state.retailerProfiles.map((item: any) => {
+        state?.retailerProfiles?.map((item: any) => {
             let index = profileNames.findIndex(
                 (name) => name === item.retailerprofilename
             );
@@ -127,7 +127,6 @@ function EditUser(props: EditUserProps) {
                 ? new Service().addEditUser(payload, state.retailerId)
                 : new Service().addEditUser(payload)
         );
-        // console.log(res);
 
         if (!res || res.status) {
             showToast({
@@ -151,36 +150,47 @@ function EditUser(props: EditUserProps) {
 
     const { getInputWrapper, isFormValid } = props;
 
-    // /let categoryIdList: any = [];
+    const handleModalSubmit = (category: Category) => {
+        console.log("category", category);
+        setCategories([...categories, category]);
+        //setmodal(false);
+        handleCancel();
+    };
 
-    const handleSelect = (e: any) => {
-        // categoryIdList.push(e);
-
+    const handleCategories = (e: any) => {
+        console.log(e);
         setCategory(e);
     };
 
     const handleCancel = () => {
         setmodal(false);
     };
+
     const showModal = () => {
         setmodal(true);
     };
 
-    const handleOk = () => {
-        setmodal(false);
-    };
-
-    function handleChange(newValue: boolean) {
-        setmodal(newValue);
-    }
+    // function handleChange(newValue: boolean) {
+    //     setmodal(newValue);
+    // }
 
     // const handlcallbackFunction = (childData: any) => {
     //     // this.setState({ message: childData });
     //     console.log(childData);
     // };
+
+    // const handleCategories = () => {
+    //     console.log("wdhbwdbwhdb");
+    //     if (state.categories) {
+    //         let c = state.categories;
+    //         console.log("catid", c);
+    //         //return [c];
+    //     }
+    // };
+
     let categoryList;
-    if (category !== undefined) {
-        categoryList = category.map((item: any) => {
+    if (categories !== undefined) {
+        categoryList = categories?.map((item: any) => {
             return (
                 <Option key={item.catid} value={item.catid}>
                     {item.catdesc}
@@ -234,8 +244,14 @@ function EditUser(props: EditUserProps) {
                             mode="multiple"
                             style={{ width: "50%" }}
                             placeholder="Please select categories"
-                            // defaultValue={["a10", "c12"]}
-                            onChange={handleSelect}
+                            defaultValue={
+                                state !== undefined
+                                    ? state.categories.map(
+                                          (items: any) => items.catid
+                                      )
+                                    : undefined
+                            }
+                            onChange={handleCategories}
                         >
                             {categoryList}
                         </Select>
@@ -245,16 +261,19 @@ function EditUser(props: EditUserProps) {
                         <Modal
                             title="Category"
                             visible={modal}
-                            onOk={handleOk}
+                            // onOk={handleOk}
+                            // closeIcon={handleCancel}
                             onCancel={handleCancel}
+                            footer={null}
                         >
-                            {/* closeModal={handleChange} */}
-                            <CategoryFormData closeModal={handleChange} />
+                            <CategoryFormData
+                                handleModalSubmit={handleModalSubmit}
+                            />
                         </Modal>
                     </div>
 
                     <div style={{ paddingLeft: "40px" }} className="w-50">
-                        {profileNames.map((name: string, i: number) => {
+                        {profileNames?.map((name: string, i: number) => {
                             return (
                                 <div className="w-100" key={i}>
                                     {getInputWrapper(name)(

@@ -1,6 +1,6 @@
+import Search from "./search/search";
 import Password from "./password/password";
 import Validation from "./password/validation";
-import Search from "./search/search";
 //import { TextGroup, TextGroup2 } from './text-group/text-group';
 import FormWrapper, { FormWrapperState } from "./form-wrapper/form-wrapper";
 import LazyLoader, { LazyLoaderState } from "./lazy-loader/lazy-loader";
@@ -28,15 +28,6 @@ import {
     Modal,
 } from "spoton-lib";
 
-// export enum InputNames {
-//     RETAILERID = "retailerId",
-//     MERCHANTID = "merchantId",
-//     GROUPID = "groupId",
-//     RETAILERNAME = "retailerName",
-//     RETAILERACTIVE = "retailerActive",
-//     RETAILERPROFILENAME = "retailerprofilename",
-//     RETAILERPROFILEVALUE = "retailerprofilevalue",
-// }
 export enum InputNames {
     EMAIL = "email",
     PASSWORD = "password",
@@ -53,7 +44,7 @@ export enum InputNames {
     RETAILERACTIVE = "retailerActive",
     MAXBAGTOTAL = "MaxBagTotal",
     MAXITEMS = "MaxItems",
-    REMAINDERSCHEDULE = "RemaindeSchedule",
+    REMINDERSCHEDULE = "ReminderSchedule",
     MAXGCVALUE = "MaxGcValue",
     MINGCVALUE = "MinGcValue",
     EMAILFROMIDRECIPIENT = "EmailFromIdForRecipient",
@@ -90,11 +81,6 @@ export interface InputProps {
     clearable?: boolean;
 }
 
-export interface CategoryProps {
-    catdesc?: string;
-    cards?: any;
-    cardimage?: any;
-}
 export {
     Datetime,
     // custom components

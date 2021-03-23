@@ -9,6 +9,7 @@ import moment from "moment";
 import { identity } from "lodash";
 import { FragmentsOnCompositeTypesRule } from "graphql";
 import Category from "./category";
+//let category = spotonschemamodels.category;
 let mainmodel = new MainModel();
 let spotonschemamodels = mainmodel.models;
 const sequelize = mainmodel.Conn;
@@ -23,8 +24,8 @@ class Retailers {
                 if (input.searchText === "") {
                     const limit = input.pageSize;
                     const offset = (input.pageNo - 1) * input.pageSize;
-                    console.log("limit", limit);
-                    console.log("offset", offset);
+                    // console.log("limit", limit);
+                    //console.log("offset", offset);
 
                     let retailers = await spotonschemamodels.retailer.findAll({
                         limit: limit,
@@ -33,15 +34,27 @@ class Retailers {
                             {
                                 model: spotonschemamodels.retailerprofile,
                             },
+                            {
+                                model: spotonschemamodels.category,
+                                as: "retailercategory",
+                            },
                         ],
                         order: [["retailerid", "ASC"]],
                     });
+
+                    //  console.log(retailers);
+
                     if (retailers) {
                         let status = config.successResponse.status;
                         let message = config.successResponse.message;
                         let total = await spotonschemamodels.retailer.count();
-                        console.log(status, message);
-                        return { retailers, total, status, message };
+                        // console.log(status, message, retailers);
+                        return {
+                            retailers,
+                            total,
+                            status,
+                            message,
+                        };
                     } else {
                         let status = config.failedResponse.status;
                         let message = config.failedResponse.message;
@@ -67,8 +80,6 @@ class Retailers {
             if (input.searchType === "any") {
                 const limit = input.pageSize;
                 const offset = (input.pageNo - 1) * input.pageSize;
-                console.log("limit", limit);
-                console.log("offset", offset);
 
                 let retailers = await spotonschemamodels.retailer.findAll({
                     limit: limit,
@@ -107,19 +118,6 @@ class Retailers {
                     let message = config.failedResponse.message;
                     return { retailers, total, status, message };
                 }
-                // .then((res) => {
-                //     console.log(res);
-                //     if (res.length === 0) {
-                //         return [];
-                //         // return spotonschemamodels.retailer.findAll({
-                //         //     include: [
-                //         //         {
-                //         //             model:
-                //         //                 spotonschemamodels.retailerprofile,
-                //         //         },
-                //         //     ],
-                //         //     where: { groupid: config.defaultGroupId },
-                //         // });
             } else {
                 return res;
             }
@@ -134,13 +132,13 @@ class Retailers {
             });
         };
 
-        this.createRetailer = async (args, retailerId) => {
+        this.createEditRetailer = async (args, retailerId) => {
             try {
                 console.log(args);
 
                 //if retailerId present then update query
                 if (retailerId !== undefined) {
-                    console.log("update retailer", retailerId);
+                    //  console.log("update retailer", retailerId);
                     await this.updateRetailer(retailerId, args);
                     let status = config.successResponse.status;
                     let message = config.successResponse.message;
@@ -223,8 +221,11 @@ class Retailers {
         };
 
         this.updateRetailerProfile = async (retailerId, other, options) => {
-            let retailerprofilename = Object.keys(other);
-            let retailerprofilevalue = Object.values(other);
+            console.log(other);
+            const { categoryId, ...profile } = other;
+            console.log(categoryId);
+            let retailerprofilename = Object.keys(profile);
+            let retailerprofilevalue = Object.values(profile);
             // console.log("Key", retailerprofilename);
             //console.log("Value", retailerprofilevalue);
 

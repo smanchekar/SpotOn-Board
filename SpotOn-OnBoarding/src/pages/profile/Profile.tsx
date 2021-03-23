@@ -3,7 +3,6 @@ import {
     Button,
     ButtonVariants,
     Input,
-    Password,
     Text,
     TextTypes,
     showLoader,
@@ -12,7 +11,6 @@ import {
     FormWrapper,
     FormWrappedProps,
     InputNames,
-    Validation,
 } from "../../components/index";
 import { Container, Row, Col } from "react-bootstrap";
 import "./profile.scss";
@@ -146,7 +144,7 @@ function Profile(props: ProfileProps) {
                         </Button>
                         {expanded && (
                             <React.Fragment>
-                                {getInputWrapper(InputNames.OLD_PASSWORD)(
+                                {/* {getInputWrapper(InputNames.OLD_PASSWORD)(
                                     <Password
                                         label="Old Password"
                                         clearable={false}
@@ -164,7 +162,7 @@ function Profile(props: ProfileProps) {
                                         label="Confirm Password"
                                         clearable={false}
                                     />
-                                )}
+                                )} */}
                             </React.Fragment>
                         )}
                         <Button

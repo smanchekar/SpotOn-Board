@@ -9,7 +9,7 @@ import config from "../../../config/config";
 import util from "../../business/util";
 export const resolver = {
     Query: {
-        allCategories() {
+        getCategoryList() {
             return Category.getCategory();
         },
     },
@@ -22,7 +22,7 @@ export const resolver = {
             //  let decoded = data;
             // console.log("decoded", decoded);
             // console.log("in createRetailer", args);
-            return Category.createCategory(args.input);
+            return Category.createCatCard(args.input);
             //  });
         },
     },

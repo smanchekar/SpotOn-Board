@@ -5,8 +5,8 @@ import { showConfirm } from "../../components/index";
 import "./layout.scss";
 
 import Login from "../login/login";
-import ForgotPassword from "../login/forgot-password";
-import ResetPassword from "../login/reset-password";
+// import ForgotPassword from "../login/forgot-password";
+// import ResetPassword from "../login/reset-password";
 
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
@@ -68,11 +68,11 @@ function Layout({ history }: any) {
                     );
                 }}
             />
-            <Route
+            {/* <Route
                 exact
                 path="/forgot-password"
                 render={(props) => <ForgotPassword {...props} />}
-            />
+            /> */}
             {(user !== null || !isDashboard) && (
                 <React.Fragment>
                     <Header
@@ -101,21 +101,6 @@ function Layout({ history }: any) {
                             }
                         >
                             <Switch>
-                                <Route
-                                    exact
-                                    path="/reset-password/:token"
-                                    render={(props: any) => (
-                                        <ResetPassword {...props} />
-                                    )}
-                                />
-                                <Route
-                                    exact
-                                    path="/set-password/:token"
-                                    render={(props: any) => (
-                                        <ResetPassword {...props} />
-                                    )}
-                                />
-
                                 <Route
                                     path="/retailers"
                                     exact

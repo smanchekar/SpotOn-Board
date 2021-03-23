@@ -7,7 +7,7 @@ input RetailerInput {
     MaxGcValue: String
     MaxItems: String
     MinGcValue: String
-    RemaindeSchedule: String
+    ReminderSchedule: String
     categoryId: [Int]
 }
 
@@ -20,6 +20,7 @@ type Retailer {
     retailerLogo: String
     retailerActive: String
     retailerProfiles: [RetailerProfile]
+    categories: [Category]
     tokenKey: String
     customStyle: String
     bannerName: String

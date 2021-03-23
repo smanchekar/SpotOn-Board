@@ -17,6 +17,11 @@ interface Response {
     message?: string;
 }
 
+export interface CategoryCards {
+    categoryname: string;
+    cardimagenames: string[];
+    carddesc: string[];
+}
 export interface RetailerInput {
     // retailerId: string | null;
     MaxBagTotal: string | null;
@@ -122,7 +127,10 @@ interface RetailerProfile {
     retailerprofilename: string | null;
     retailerprofilevalue: string | null;
 }
-
+export interface Category {
+    catid: number | null;
+    catdesc: string | null;
+}
 export interface Retailers {
     __typename: "Retailers";
     retailerId: string | null;
@@ -131,6 +139,7 @@ export interface Retailers {
     retailerName: string | null;
     retailerActive: string | null;
     retailerProfile: Array<RetailerProfile> | null;
+    categories: Array<Category> | null;
 }
 export interface Filter {
     searchText: string | null;

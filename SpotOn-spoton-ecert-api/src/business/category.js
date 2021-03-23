@@ -105,7 +105,7 @@ class Category {
         };
 
         //Create new Category ,Cards
-        this.createCategory = async (args) => {
+        this.createCatCard = async (args) => {
             try {
                 let { categoryname, ...other } = args;
 
@@ -129,7 +129,7 @@ class Category {
                 let status = config.successResponse.status;
                 let message = config.successResponse.message;
                 console.log(status, message);
-                return { status, message };
+                return { status, message, category: Category };
             } catch (error) {
                 console.log(error);
                 return config.failedResponse;

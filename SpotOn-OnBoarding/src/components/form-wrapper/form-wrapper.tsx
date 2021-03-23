@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { InputNames } from '../index';
-import { constants } from '../../constants';
-import util from '../../util';
+import React, { Component } from "react";
+import { InputNames } from "../index";
+import { constants } from "../../constants";
+import util from "../../util";
 
 export interface FormWrapperState {
     initial: { [key: string]: string };
@@ -44,13 +44,13 @@ export default function FormWrapper(Form: Function) {
         getInputType(name: string) {
             var lc = (value: string) => value.toLowerCase();
 
-            if (lc(name).indexOf('email') > -1) {
-                return 'email';
+            if (lc(name).indexOf("email") > -1) {
+                return "email";
             }
-            if (lc(name).indexOf('password') > -1) {
-                return 'password';
-            }
-            return 'name';
+            // if (lc(name).indexOf("password") > -1) {
+            //     return "password";
+            // }
+            return "name";
         }
 
         /**
@@ -72,7 +72,7 @@ export default function FormWrapper(Form: Function) {
             if (value.length < 3) return validation;
             validation[0] = value.length >= constants.MIN_PASSWORD_LENGTH;
             validation[1] = true;
-            const characters = value.split('');
+            const characters = value.split("");
 
             // will be used for next validations
             const callback = (ch: string, i: number, cb: Function) => {
@@ -86,9 +86,13 @@ export default function FormWrapper(Form: Function) {
             };
             // check for repeatative words
             validation[2] = characters.every((ch, i) => {
-                return callback(ch, i, (curr: number, prev: number, next: number) => {
-                    return curr !== prev || curr !== next;
-                });
+                return callback(
+                    ch,
+                    i,
+                    (curr: number, prev: number, next: number) => {
+                        return curr !== prev || curr !== next;
+                    }
+                );
             });
 
             const between = (code: number, ch1: string, ch2: string) => {
@@ -96,15 +100,19 @@ export default function FormWrapper(Form: Function) {
             };
             // check for continuous characters
             validation[3] = characters.every((ch, i) => {
-                return callback(ch, i, (curr: number, prev: number, next: number) => {
-                    if (
-                        between(curr, 'A', 'Z') ||
-                        between(curr, 'a', 'z') ||
-                        between(curr, '0', '9')
-                    )
-                        return curr !== next - 1 || curr !== prev + 1;
-                    return true;
-                });
+                return callback(
+                    ch,
+                    i,
+                    (curr: number, prev: number, next: number) => {
+                        if (
+                            between(curr, "A", "Z") ||
+                            between(curr, "a", "z") ||
+                            between(curr, "0", "9")
+                        )
+                            return curr !== next - 1 || curr !== prev + 1;
+                        return true;
+                    }
+                );
             });
 
             return validation;
@@ -147,20 +155,20 @@ export default function FormWrapper(Form: Function) {
             const { input, valid, message, required } = this.state;
             const type = this.getInputType(name);
             valid[name] = true;
-            message[name] = '';
+            message[name] = "";
 
             if (value && value.trim()) {
                 switch (name) {
                     case InputNames.EMAIL:
                         valid.email = this.validateEmail(value);
                         if (!valid.email) {
-                            message[name] = 'Please input valid email';
+                            message[name] = "Please input valid email";
                         }
                         break;
                     case InputNames.CONFIRM_PASSWORD:
                         valid[name] = value === input[InputNames.NEW_PASSWORD];
                         if (!valid[name]) {
-                            message[name] = 'Password does not match';
+                            message[name] = "Password does not match";
                         }
                         break;
                     case InputNames.NEW_PASSWORD:
@@ -169,11 +177,11 @@ export default function FormWrapper(Form: Function) {
                         break;
                     default:
                         valid[name] = true;
-                        message[name] = '';
+                        message[name] = "";
                 }
             } else if (required[name] !== false) {
                 valid[name] = false;
-                message[name] = 'Please input valid ' + type;
+                message[name] = "Please input valid " + type;
             }
 
             this.setState({ valid, message });
@@ -187,7 +195,11 @@ export default function FormWrapper(Form: Function) {
             const isValid = Object.keys(input).every((key) => {
                 return this.isInputValid(key, input[key]);
             });
-            return isValid && !util.isEmpty(initial) && !util.shallowEqual(initial, input);
+            return (
+                isValid &&
+                !util.isEmpty(initial) &&
+                !util.shallowEqual(initial, input)
+            );
         };
 
         /**
@@ -216,7 +228,7 @@ export default function FormWrapper(Form: Function) {
             return (Input: React.ReactElement) => {
                 return React.cloneElement(Input, {
                     ...this.getInputProps(name),
-                    className: 'form-input ' + (Input.props.className || ''),
+                    className: "form-input " + (Input.props.className || ""),
                 });
             };
         };

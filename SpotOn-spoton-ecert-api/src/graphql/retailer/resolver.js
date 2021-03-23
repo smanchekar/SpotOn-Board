@@ -10,13 +10,13 @@ export const resolver = {
     Query: {
         //TO GET ALL RETAILERS
         allRetailers(root, args, context) {
-            console.log("in args of retailers", args);
-            return util.verifyUser(context.token).then((data) => {
-                let decoded = data;
-                console.log("decoded", decoded);
+            //  console.log("in args of retailers", args);
+            // return util.verifyUser(context.token).then((data) => {
+            //  let decoded = data;
+            //    console.log("decoded", decoded);
 
-                return Retailers.getAllRetailers(args.input);
-            });
+            return Retailers.getAllRetailers(args.input);
+            //   });
         },
 
         retailer(root, args, context) {
@@ -41,17 +41,18 @@ export const resolver = {
 
     Mutation: {
         addEditRetailer(root, args, context) {
-            console.log("in args of create retailers", args);
+            // console.log("in args of create retailers", args);
             // return util.verifyUser(context.token).then((data) => {
             //  let decoded = data;
             // console.log("decoded", decoded);
             // console.log("in createRetailer", args);
-            return Retailers.createRetailer(args.input, args.retailerId);
+            return Retailers.createEditRetailer(args.input, args.retailerId);
             //});
         },
     },
 
     Retailer: {
+        categories: (row) => row.retailercategory,
         retailerId: (row) => row.retailerid,
         groupId: (row) => row.groupid,
         merchantId: (row) => row.merchantid,

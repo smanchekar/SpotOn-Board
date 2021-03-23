@@ -18,7 +18,7 @@
     // padding: 0 25%;
     // height: calc(100vh - 290px);
     overflow: auto;
-    text-align: center;
+    //text-align: center;
     margin: auto;
     p {
         font-size: 15px;
@@ -31,6 +31,14 @@
     }
 }
 
+.cardInput {
+    margin-right: 10px;
+    // text-align: right;
+}
+.cardName {
+    margin-left: 10px;
+    text-align: left;
+}
 .upload-list-inline .ant-upload-list-item {
     float: left;
     width: 200px;

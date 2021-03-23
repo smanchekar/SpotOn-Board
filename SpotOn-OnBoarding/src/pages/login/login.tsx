@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
     Button,
-    ButtonVariants,
+    // ButtonVariants,
     Input,
     Password,
     Text,
@@ -103,15 +103,7 @@ function Login(props: LoginProps) {
                                 onPressEnter={handleSubmit}
                             />
                         )}
-                        <Button
-                            className="button3"
-                            variant={ButtonVariants.TERTIARY}
-                            onClick={() =>
-                                props.history.push("/forgot-password")
-                            }
-                        >
-                            Forgot Password?
-                        </Button>
+
                         <div className="d-flex justify-content-center">
                             <Button
                                 className="button"

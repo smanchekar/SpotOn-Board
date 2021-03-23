@@ -82,66 +82,6 @@ export default class ApolloClientService {
         }
     }
 
-    async forgotPassword(email: string) {
-        try {
-            console.log("forgotPassword...");
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation forgotPassword($email: String!) {
-                        forgotPassword(email: $email) {
-                            status
-                            message
-                        }
-                    }
-                `,
-                variables: {
-                    email,
-                },
-                fetchPolicy: "no-cache",
-            });
-            console.log("forgotPassword...", data.data);
-            return data.data ? data.data.forgotPassword : { status: 1 };
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
-    async resetPassword(email: string, newPassword: string, token: string) {
-        try {
-            console.log("resetPassword...", token);
-            let data = await this._instance.mutate({
-                mutation: gql`
-                    mutation changePassword(
-                        $email: String!
-                        $input: PasswordInput!
-                        $token: String!
-                    ) {
-                        changePassword(
-                            email: $email
-                            input: $input
-                            token: $token
-                        ) {
-                            status
-                            message
-                        }
-                    }
-                `,
-                variables: {
-                    email,
-                    input: { newPassword },
-                    token,
-                },
-                fetchPolicy: "no-cache",
-            });
-            console.log("resetPassword...", data.data);
-            return data.data ? data.data.changePassword : { status: 1 };
-        } catch (ex) {
-            console.log("errorrro", ex);
-            return this.handlException(ex);
-        }
-    }
-
     async getRetailerProfile(groupid: number, merchantid: number) {
         try {
             console.log("getRetailerProfile...", groupid);
@@ -195,7 +135,12 @@ export default class ApolloClientService {
                                     retailerprofilename
                                     retailerprofilevalue
                                 }
+                                categories {
+                                    catid
+                                    catdesc
+                                }
                             }
+
                             status
                             message
                             total
@@ -207,7 +152,7 @@ export default class ApolloClientService {
                 },
                 fetchPolicy: "no-cache",
             });
-            console.log("in getAll retailer", data.data);
+            console.log("in getAll retailer", data);
             return data.data ? data.data.allRetailers : undefined;
         } catch (ex) {
             console.log("errorrro", ex);
@@ -254,8 +199,8 @@ export default class ApolloClientService {
             console.log("in all category appolo");
             let data = await this._instance.query({
                 query: gql`
-                    query allCategories {
-                        allCategories {
+                    query getCategoryList {
+                        getCategoryList {
                             categories {
                                 catid
                                 catdesc
@@ -266,8 +211,11 @@ export default class ApolloClientService {
                 variables: {},
                 fetchPolicy: "no-cache",
             });
-            console.log("in getAll Categories");
-            return data.data ? data.data.allCategories : undefined;
+            console.log(
+                "in getAll Categories",
+                data.data.getCategoryList.categories
+            );
+            return data.data ? data.data.getCategoryList : undefined;
         } catch (err) {
             return this.handlException(err);
         }
@@ -283,6 +231,10 @@ export default class ApolloClientService {
                         addCategoryAndCards(input: $input) {
                             status
                             message
+                            category {
+                                catid
+                                catdesc
+                            }
                         }
                     }
                 `,
@@ -301,7 +253,7 @@ export default class ApolloClientService {
     }
 
     async addEditUser(input: RetailerInput, retailerId?: number) {
-        console.log("retailerId", retailerId);
+        console.log("retailerId wwwwwwww", input);
 
         const { ...common } = input;
         // const { newPassword }: any = password;
@@ -320,6 +272,10 @@ export default class ApolloClientService {
                             retailerId
                             status
                             message
+                            categories {
+                                catid
+                                catdesc
+                            }
                         }
                     }
                 `,
@@ -332,7 +288,7 @@ export default class ApolloClientService {
                 },
                 fetchPolicy: "no-cache",
             });
-            console.log("addEditRetailer...");
+            console.log("addEditRetailer...", data.data.addEditRetailer);
             return data.data ? data.data.addEditRetailer : { status: 1 };
         } catch (ex) {
             return this.handlException(ex);
